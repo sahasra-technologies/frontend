@@ -80,7 +80,7 @@ const CTASection = () => {
             <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto mb-8">
               Join thousands of sports enthusiasts who are already making
               friends, staying active, and having amazing times right here on
-              AthleteHub!
+              PlayDate!
             </p>
 
             {/* Email signup */}

@@ -72,16 +72,16 @@ const Header = () => {
           >
             <div className="flex items-center space-x-2">
               <motion.div
-                className="w-10 h-10 bg-sports-blue rounded-xl flex items-center justify-center shadow-lg"
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
                 whileHover={{
                   boxShadow: "0 10px 25px rgba(59, 130, 246, 0.3)",
                   scale: 1.1,
                 }}
               >
-                <span className="text-white font-bold text-lg">AH</span>
+                <img src="/Play_primary.svg" alt="logo" className="h-8 w-auto" />
               </motion.div>
               <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-sports-blue bg-clip-text text-transparent">
-                AthleteHub
+                PlayDate
               </span>
             </div>
           </motion.div>

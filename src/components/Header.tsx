@@ -19,10 +19,10 @@ const Header = () => {
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-sports-blue rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">AH</span>
+                <span className="text-white font-bold text-sm">PD</span>
               </div>
               <span className="text-xl font-bold text-gray-900">
-                AthleteHub
+                PlayDate
               </span>
             </div>
           </div>

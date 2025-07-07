@@ -47,7 +47,7 @@ const Footer = () => {
                 <div className="w-8 h-8 bg-sports-blue rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">AH</span>
                 </div>
-                <span className="text-xl font-bold">AthleteHub</span>
+                <span className="text-xl font-bold">PlayDate</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-sm">
                 Connecting sports enthusiasts, one game at a time. Find your
@@ -118,7 +118,7 @@ const Footer = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 AthleteHub. All rights reserved.
+              © 2024 PlayDate. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a
