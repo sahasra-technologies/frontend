@@ -1,17 +1,73 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, MapPin, Bell, User } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { MagneticButton } from "./AnimationWrapper";
+import { FaChevronDown } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+
+
+const majorCities = [
+  "Mumbai", "Delhi", "Bengaluru", "Hyderabad", "Ahmedabad",
+  "Chennai", "Kolkata", "Pune", "Jaipur", "Surat"
+];
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const [location, setLocation] = useState("Fetching location...");
+  const [showCityDropdown, setShowCityDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+  
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50);
   });
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            try {
+              const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+              );
+              const data = await response.json();
+              const address = data.address;
+              const city = address.city || address.town || address.village || "Your Area";
+              setLocation(city);
+            } catch {
+              setLocation("Unable to fetch location");
+            }
+          },
+          () => setLocation("Permission denied")
+        );
+      } else {
+        setLocation("Geolocation not supported");
+      }
+    };
+
+    fetchLocation();
+  }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowCityDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
+  const handleCitySelect = (city) => {
+    setLocation(city);
+    setShowCityDropdown(false);
+  };
 
   const headerVariants = {
     top: {
@@ -50,6 +106,60 @@ const Header = () => {
     { label: "Community", href: "#", color: "text-sports-purple" },
   ];
 
+  const LocationDropdown = () => (
+    <div className="flex items-center space-x-2 text-gray-600" ref={dropdownRef}>
+      <motion.div
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <MapPin className="w-4 h-4 text-sports-green" />
+      </motion.div>
+      <div className="relative">
+        <button
+          onClick={() => setShowCityDropdown(!showCityDropdown)}
+          className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-800 transition"
+        >
+          <span>{location}</span>
+          <FaChevronDown className={`ml-1 transform transition-transform ${showCityDropdown ? "rotate-180" : ""}`} />
+        </button>
+        {showCityDropdown && (
+          <motion.ul
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+          >
+            <li
+              onClick={() => window.location.reload()}
+              tabIndex={0}
+              className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-sports-green border-b font-medium"
+            >
+              📍 Use My Current Location
+            </li>
+            {majorCities.map((city, index) => (
+              <li
+                key={index}
+                onClick={() => handleCitySelect(city)}
+                tabIndex={0}
+                className={`px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm ${
+                  location.includes(city) ? "bg-sports-blue/10 font-semibold" : ""
+                }`}
+              >
+                {city}
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </div>
+      <motion.div
+        className="w-2 h-2 bg-sports-green rounded-full"
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      />
+    </div>
+  );
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
@@ -63,7 +173,7 @@ const Header = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo with enhanced animation */}
+          {/* Logo */}
           <motion.div
             variants={logoVariants}
             initial="initial"
@@ -86,28 +196,17 @@ const Header = () => {
             </div>
           </motion.div>
 
-          {/* Location with pulse animation */}
+          {/* Desktop Location */}
           <motion.div
-            className="hidden md:flex items-center space-x-2 text-gray-600"
+            className="hidden md:flex"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <MapPin className="w-4 h-4 text-sports-green" />
-            </motion.div>
-            <span className="text-sm font-medium">Bangalore</span>
-            <motion.div
-              className="w-2 h-2 bg-sports-green rounded-full"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
+            <LocationDropdown />
           </motion.div>
 
-          {/* Enhanced Navigation */}
+          {/* Nav Items */}
           <nav className="hidden md:flex items-center space-x-8">
             {menuItems.map((item, index) => (
               <motion.a
@@ -117,7 +216,6 @@ const Header = () => {
                 initial="initial"
                 whileHover="hover"
                 className={`font-medium hover:${item.color} transition-colors relative`}
-                style={{ "--delay": `${index * 0.1}s` }}
               >
                 <span className="relative z-10">{item.label}</span>
                 <motion.div
@@ -130,10 +228,10 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Enhanced Action buttons */}
+          {/* Desktop Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="ghost" className="text-gray-700 relative">
+              <Button variant="ghost" className="text-gray-700 relative" onClick={() => navigate('/login')}>
                 <Bell className="w-4 h-4 mr-2" />
                 Login
                 <motion.div
@@ -143,33 +241,28 @@ const Header = () => {
                 />
               </Button>
             </motion.div>
-
             <MagneticButton className="bg-sports-blue hover:bg-sports-blue-dark text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
               <User className="w-4 h-4 mr-2" />
               Sign Up
             </MagneticButton>
           </div>
 
-          {/* Enhanced Mobile menu button */}
+          {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-xl hover:bg-gray-100 relative overflow-hidden"
+            className="md:hidden p-2 rounded-xl hover:bg-gray-100"
             whileTap={{ scale: 0.95 }}
           >
             <motion.div
               animate={{ rotate: isMenuOpen ? 180 : 0 }}
               transition={{ duration: 0.3 }}
             >
-              {isMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </motion.div>
           </motion.button>
         </div>
 
-        {/* Enhanced Mobile menu */}
+        {/* Mobile Menu Content */}
         <motion.div
           initial={false}
           animate={{
@@ -180,14 +273,15 @@ const Header = () => {
           className="md:hidden overflow-hidden bg-white/95 backdrop-blur-lg rounded-2xl mx-4 mb-4"
         >
           <div className="p-6 space-y-6">
+            <div className="flex flex-col space-y-4">
+              <LocationDropdown />
+            </div>
             {menuItems.map((item, index) => (
               <motion.a
                 key={item.label}
                 href={item.href}
                 initial={{ x: -20, opacity: 0 }}
-                animate={
-                  isMenuOpen ? { x: 0, opacity: 1 } : { x: -20, opacity: 0 }
-                }
+                animate={isMenuOpen ? { x: 0, opacity: 1 } : {}}
                 transition={{ delay: index * 0.1 }}
                 className={`block text-lg font-medium hover:${item.color} transition-colors`}
               >
@@ -196,13 +290,11 @@ const Header = () => {
             ))}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
-              animate={
-                isMenuOpen ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }
-              }
+              animate={isMenuOpen ? { y: 0, opacity: 1 } : {}}
               transition={{ delay: 0.4 }}
               className="flex flex-col space-y-3 pt-4 border-t border-gray-200"
             >
-              <Button variant="ghost" className="justify-start">
+              <Button variant="ghost" className="justify-start" onClick={() => navigate('/login')}>
                 <Bell className="w-4 h-4 mr-2" />
                 Login
               </Button>

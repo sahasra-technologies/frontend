@@ -1,10 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
+import {
+  FaUser, FaMapMarkerAlt, FaChevronDown, FaBars, FaTimes
+} from 'react-icons/fa';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [location, setLocation] = useState('Fetching location...');
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+            const data = await response.json();
+            const address = data.address;
+            const display = `${address.postcode || ''}, ${address.suburb || address.city || address.town || address.village || 'Your Area'}`;
+            setLocation(display);
+          } catch {
+            setLocation('Unable to fetch location');
+          }
+        },
+        () => setLocation('Permission denied')
+      );
+    } else {
+      setLocation('Geolocation not supported');
+    }
+  }, []);
 
   return (
     <motion.header
@@ -30,7 +56,8 @@ const Header = () => {
           {/* Location indicator */}
           <div className="hidden md:flex items-center space-x-2 text-gray-600">
             <MapPin className="w-4 h-4" />
-            <span className="text-sm">Bangalore</span>
+            {/* <span className="text-sm">Bangalore</span> */}
+            {location} <FaChevronDown className="icon-down" />
           </div>
 
           {/* Navigation */}
