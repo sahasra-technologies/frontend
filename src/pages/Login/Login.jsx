@@ -6,6 +6,7 @@ import logo from '../../assets/images/image.png';
 // import {useUser} from './UserContext'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import './Login.css';
+import { toast } from 'react-toastify';
 
 const apiClient = axios.create({
   baseURL: 'https://playdatesport.com/api',
@@ -15,11 +16,11 @@ const apiClient = axios.create({
 const forgetPassword = async (username) => {
   try {
     await apiClient.put('/User/signup/', { username });
-    alert('Reset mail sent successfully!');
+    toast.success('Reset mail sent successfully!');
     return true;
   } catch (error) {
     console.log('Forgot password error:', error);
-    alert('Failed to send reset mail. Try again.');
+    toast.error('Failed to send reset mail. Try again.');
     return false;
   }
 };
@@ -44,7 +45,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     if (!isPasswordValid(password)) {
-      alert("Password must be at least 8 characters long and include at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.");
+      toast.error("Password must be at least 8 characters long and include at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.");
       return;
     }
 
@@ -66,6 +67,8 @@ const LoginForm = () => {
         },
       });
 
+      toast.success(`Welcome back, 👋`); // ${firstName}!
+
       const firstName = userRes.data.first_name;
       const userId = userRes.data.id
       const userEmail = userRes.data.email
@@ -73,23 +76,23 @@ const LoginForm = () => {
       Cookies.set('userId', userId);
 
       Cookies.set('email', userEmail)
-     
+      Cookies.set('user', JSON.stringify(userRes.data))
       
       // setUser(firstName);
 
       
       Cookies.set('first_name', firstName);
 
-      
       navigate('/');
     } catch (err) {
-      console.error('Login error:', err);
-      alert('Invalid credentials');
+      // console.error('Login error:', err);
+      // alert('Invalid credentials');
+      toast.error('Invalid credentials');
     }
   };
 
   const handleForgotPassword = async () => {
-    if (!forgotEmail) return alert('Please enter your email');
+    if (!forgotEmail) return toast.error('Please enter your email');
     const success = await forgetPassword(forgotEmail);
     if (success) {
       setTimeout(() => {

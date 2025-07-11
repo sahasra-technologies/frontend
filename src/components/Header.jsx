@@ -5,6 +5,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { MagneticButton } from "./AnimationWrapper";
 import { FaChevronDown } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 const majorCities = [
@@ -20,6 +21,19 @@ const Header = () => {
   const [showCityDropdown, setShowCityDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+
+  let user = null;
+
+  try {
+    const userCookie = Cookies.get('user');
+    if (userCookie) {
+      user = JSON.parse(userCookie);
+    }
+  } catch (error) {
+    console.error("Failed to parse user cookie:", error);
+    user = null;
+  }
+
   
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -160,6 +174,17 @@ const Header = () => {
     </div>
   );
 
+  const handleLogout = () => {
+    Cookies.remove('user');
+    Cookies.remove('access');
+    Cookies.remove('refresh');
+    Cookies.remove('userId');
+    Cookies.remove('email');
+    Cookies.remove('first_name');
+    navigate('/');
+  };
+
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
@@ -232,7 +257,8 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-4">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="ghost" className="text-gray-700 relative" onClick={() => navigate('/login')}>
-                <Bell className="w-4 h-4 mr-2" />
+                {/* <Bell className="w-4 h-4 mr-2" /> */}
+                <User className="w-4 h-4 mr-2" />
                 Login
                 <motion.div
                   className="absolute -top-1 -right-1 w-2 h-2 bg-sports-red rounded-full"
@@ -241,10 +267,10 @@ const Header = () => {
                 />
               </Button>
             </motion.div>
-            <MagneticButton className="bg-sports-blue hover:bg-sports-blue-dark text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+            {/* <MagneticButton className="bg-sports-blue hover:bg-sports-blue-dark text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
               <User className="w-4 h-4 mr-2" />
               Sign Up
-            </MagneticButton>
+            </MagneticButton> */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -294,14 +320,22 @@ const Header = () => {
               transition={{ delay: 0.4 }}
               className="flex flex-col space-y-3 pt-4 border-t border-gray-200"
             >
-              <Button variant="ghost" className="justify-start" onClick={() => navigate('/login')}>
-                <Bell className="w-4 h-4 mr-2" />
-                Login
-              </Button>
-              <Button className="bg-sports-blue text-white">
+              { user ? (
+                <Button variant="ghost" className="justify-start" onClick={handleLogout}>
+                  <Bell className="w-4 h-4 mr-2" />
+                  Logout
+                </Button>                
+              ) : (
+                <Button variant="ghost" className="justify-start" onClick={() => navigate('/login')}>
+                  <Bell className="w-4 h-4 mr-2" />
+                  Login
+                </Button>
+              )}
+              
+              {/* <Button className="bg-sports-blue text-white">
                 <User className="w-4 h-4 mr-2" />
                 Sign Up
-              </Button>
+              </Button> */}
             </motion.div>
           </div>
         </motion.div>
