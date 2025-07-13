@@ -16,6 +16,9 @@ import ResetPassword from './pages/ResetPassword/ResetPassword.jsx';
 import AddTeamDetails from './pages/AddTeamDetails/AddTeamDetails.jsx';
 import GameDetailsPage from "./pages/GameDetails.jsx";
 import VenueLayout from './pages/VenueLayout/VenueLayout.jsx';
+// import GroundVenueDetails from './pages/GroundVenueDetails/GroundVenueDetails.jsx';
+// import GroundTournamentRules from './pages/GroundTournamentRules/GroundTournamentRules.jsx';
+// import VenueDetails from "./pages/VenueLayout/VenueDetails.jsx";
 
 import NotFound from "./pages/NotFound.jsx";
 import CustomSpinner from './components/Spinner/CustomSpinner';
@@ -86,6 +89,9 @@ const App = () => {
                   <Route path="/add-team" element={<AddTeamDetails setIsLoading={setIsLoading}/>} />
                   <Route path="/tournaments/:id" element={<GameDetailsPage setIsLoading={setIsLoading} />} />
                   <Route path="/venue/:id" element={<VenueLayout setIsLoading={setIsLoading} />} />
+                  {/* <Route path="/venue/:id/details" element={<GroundVenueDetails setIsLoading={setIsLoading} />} /> */}
+                  {/* <Route path="/venue/:id/tournament-rules" element={<GroundTournamentRules setIsLoading={setIsLoading} />} /> */}
+                  {/* <Route path="/venue-details/:id" element={<VenueDetails setIsLoading={setIsLoading} />} /> */}
 
                   {/* Not Found */}
                   <Route path="*" element={<NotFound />} />
