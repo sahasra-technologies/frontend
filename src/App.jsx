@@ -7,11 +7,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Index from "./pages/Index.jsx";
-import NotFound from "./pages/NotFound.jsx";
 import AboutUs from "./pages/About/AboutUs.jsx";
+
 import LoginForm from "./pages/Login/Login.jsx";
 import Register from "./pages/Registration/Resgistration.jsx";
 import ResetPassword from './pages/ResetPassword/ResetPassword.jsx';
+import AddTeamDetails from './pages/AddTeamDetails/AddTeamDetails.jsx'
+
+import NotFound from "./pages/NotFound.jsx";
 import CustomSpinner from './components/Spinner/CustomSpinner';
 // import Navbar from "./components/Navbar/Navbar"; // Ensure this is imported
 // import { ThemeContext } from "./context/ThemeContext"; // Ensure this exists
@@ -40,7 +43,7 @@ const App = () => {
 
   useEffect(() => {
     // Simulated loading timeout (you can replace with real logic later)
-    const timer = setTimeout(() => setLoading(false), 2000);
+    const timer = setTimeout(() => setIsLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -64,11 +67,19 @@ const App = () => {
         {!isLoading && (
           <BrowserRouter>
             <Routes>
+              {/* home */}
               <Route path="/" element={<LayoutWrapper><Index /></LayoutWrapper>} />
               <Route path="/about-us" element={<LayoutWrapper><AboutUs /></LayoutWrapper>} />
+
+              {/* Authentication */}
               <Route path="/login" element={<LoginForm />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/register" element={<Register setIsLoading={setIsLoading} />} />
+
+              {/* APP */}
+              <Route path="/add-team" element={<AddTeamDetails setIsLoading={setIsLoading}/>} />
+
+              {/* Not Found */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
