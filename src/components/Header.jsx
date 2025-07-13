@@ -205,7 +205,7 @@ const Header = () => {
             whileHover="hover"
             className="flex items-center cursor-pointer"
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2"  onClick={() => navigate("/")}>
               <motion.div
                 className="w-10 h-10 rounded-xl flex items-center justify-center"
                 whileHover={{

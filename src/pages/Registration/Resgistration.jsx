@@ -11,7 +11,7 @@ const apiClient = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-const Register = () => {  //{ setIsLoading }
+const Register = ({ setIsLoading }) => {  //{ setIsLoading }
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [phone, setPhone] = useState('');
@@ -48,7 +48,7 @@ const Register = () => {  //{ setIsLoading }
     }
 
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       const response = await apiClient.post('/User/signup/', {
         username,
         password,
@@ -57,11 +57,11 @@ const Register = () => {  //{ setIsLoading }
       });
 
       toast.success('Registration successful! Please log in.');
-      // setIsLoading(false);
+      setIsLoading(false);
       navigate('/login');
     } catch (error) {
       console.error('Registration error:', error.response?.data || error.message);
-      // setIsLoading(false);
+      setIsLoading(false);
       toast.error('Registration failed. Try a different email.');
     }
   };
