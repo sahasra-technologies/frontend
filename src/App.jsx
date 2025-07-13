@@ -12,19 +12,23 @@ import AboutUs from "./pages/About/AboutUs.jsx";
 import LoginForm from "./pages/Login/Login.jsx";
 import Register from "./pages/Registration/Resgistration.jsx";
 import ResetPassword from './pages/ResetPassword/ResetPassword.jsx';
-import AddTeamDetails from './pages/AddTeamDetails/AddTeamDetails.jsx'
+
+import AddTeamDetails from './pages/AddTeamDetails/AddTeamDetails.jsx';
+import GameDetailsPage from "./pages/GameDetails.jsx";
+import VenueLayout from './pages/VenueLayout/VenueLayout.jsx';
 
 import NotFound from "./pages/NotFound.jsx";
 import CustomSpinner from './components/Spinner/CustomSpinner';
 // import Navbar from "./components/Navbar/Navbar"; // Ensure this is imported
-// import { ThemeContext } from "./context/ThemeContext"; // Ensure this exists
+import { ThemeContext, ThemeProvider } from "./context/ThemeContext"; // Ensure this exists
+import { GameProvider } from './context/GameContext';
 
 const queryClient = new QueryClient();
 
 // 🔄 Layout with Navbar/Footer
 function LayoutWrapper({ children }) {
   const location = useLocation();
-  const { theme = 'light' } =  {}; //useContext(ThemeContext) ||
+  const { theme = 'light' } = useContext(ThemeContext) || {}; //
 
   const hideLayoutPaths = ['/login', '/reset-password'];
   const hideLayout = hideLayoutPaths.includes(location.pathname);
@@ -65,24 +69,30 @@ const App = () => {
         {isLoading && <CustomSpinner />}
 
         {!isLoading && (
-          <BrowserRouter>
-            <Routes>
-              {/* home */}
-              <Route path="/" element={<LayoutWrapper><Index /></LayoutWrapper>} />
-              <Route path="/about-us" element={<LayoutWrapper><AboutUs /></LayoutWrapper>} />
+          <ThemeProvider>
+            <GameProvider>
+              <BrowserRouter>
+                <Routes>
+                  {/* home */}
+                  <Route path="/" element={<LayoutWrapper><Index /></LayoutWrapper>} />
+                  <Route path="/about-us" element={<LayoutWrapper><AboutUs /></LayoutWrapper>} />
 
-              {/* Authentication */}
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/register" element={<Register setIsLoading={setIsLoading} />} />
+                  {/* Authentication */}
+                  <Route path="/login" element={<LoginForm />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
+                  <Route path="/register" element={<Register setIsLoading={setIsLoading} />} />
 
-              {/* APP */}
-              <Route path="/add-team" element={<AddTeamDetails setIsLoading={setIsLoading}/>} />
+                  {/* APP */}
+                  <Route path="/add-team" element={<AddTeamDetails setIsLoading={setIsLoading}/>} />
+                  <Route path="/tournaments/:id" element={<GameDetailsPage setIsLoading={setIsLoading} />} />
+                  <Route path="/venue/:id" element={<VenueLayout setIsLoading={setIsLoading} />} />
 
-              {/* Not Found */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+                  {/* Not Found */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </GameProvider>
+          </ThemeProvider>
         )}
       </TooltipProvider>
     </QueryClientProvider>

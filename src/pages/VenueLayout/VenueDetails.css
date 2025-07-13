@@ -1,0 +1,355 @@
+.venue-container{
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  min-height: 100vh;
+}
+.sub-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.venue-details-wrapper {
+  position: relative;
+  width: 50%;
+  max-width: 538px;
+  height: auto;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.back-btn {
+  position: absolute;
+  /* top: 16px;
+  left: 16px; */
+  background: #0074cc;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background: #005fa3;
+}
+
+.top-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.main-img {
+  flex: 1;
+  width: 100%;
+  max-height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.details-section {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.details-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.game-name {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.get-directions {
+  background-color: #0074cc;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+
+.get-directions:hover {
+  background-color: #005fa3;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+
+.section p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.maintance-schedule {
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+.maintance-schedule p {
+  margin: 2px 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.amenities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.amenities-list li {
+  padding: 6px;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.book-button {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  width: 30%;
+}
+
+.btn-wrap{
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+.book-button:hover {
+  background-color: #4b6eee;
+}
+
+.loading-msg,
+.error-msg {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.modal-overlay {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+
+
+.modal-form {
+  background: white;
+  border-radius: 18px;
+  padding: 2rem 1.5rem;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.form-title {
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1d4ed8;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  flex: 0 0 48%;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.6rem 0.8rem;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3b82f6;
+}
+
+.form-btn-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.submit-btn {
+  margin: 1rem auto 0 auto; /* center horizontally */
+  display: block;
+  width: auto;
+  background: #3b82f6;
+  color: white;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+
+.submit-btn:hover {
+  background: #2563eb;
+}
+
+.inout-form-payment{
+   background-color: #bbbabae1;
+   color: #999999;
+   cursor: not-allowed;
+   border: 1px solid #ccc;
+}
+
+
+.inout-form-payments {
+  background-color: #fff;
+  color: #000;
+  cursor: text;
+  border: 1px solid #ccc;
+}
+
+.disabled-input {
+  background-color: #bbbabae1;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+.qr-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.qr-code {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin: 10px auto;
+}
+
+
+
+.mobile_venue-details-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 538px;
+  height: auto;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.mobile_venue-details-wrapper{
+  display: none;
+}
+
+.book-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+
+  .mobile_venue-details-wrapper{
+    display: block;
+  }
+  .venue-details-wrapper{
+    display: none;
+  }
+}
