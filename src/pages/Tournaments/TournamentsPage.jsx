@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { ThemeContext } from '../../context/ThemeContext';
 import './TournamentsPage.css';
 import axios from 'axios';
+import Header from "@/components/Header";
 
 const TournamentPage = ({ setIsLoading }) => {
   const navigate = useNavigate();

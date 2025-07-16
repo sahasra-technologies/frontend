@@ -4,6 +4,7 @@ import axios from 'axios'
 import '../Login/Login.css'  
 import { toast } from 'react-toastify';
 import logo from '../../assets/images/image.png';
+import loginBackground from '../../assets/images/loginpage.png';
 
 const apiClient = axios.create({
     baseURL: 'https://playdatesport.com/api',
@@ -56,7 +57,11 @@ const ResetPassword = () =>{
   };
 
     return(
-        <div className="login-container">
+        <div className="login-container" style={{
+          backgroundImage: `url(${loginBackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
       <div className="login-box">
         <h2 className="login-title">
           <img src={logo} alt="Logo" /><br />
@@ -85,9 +90,11 @@ const ResetPassword = () =>{
           <li>At least 1 special character (@$!%*?#&)</li>
           <li>New Password and Conform Passwrod should be same</li>
         </ul>
-        <button type="button" className="sign-in-button" onClick={handleReset}>
-          Update Password
-        </button>
+        <div className="button-container">
+          <button type="button" className="sign-in-button" onClick={handleReset} >
+            Update Password
+          </button>
+        </div>
       </div>
     </div>
     )

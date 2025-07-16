@@ -7,6 +7,8 @@ import logo from '../../assets/images/image.png';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import './Login.css';
 import { toast } from 'react-toastify';
+// import Header from "@/components/Header";
+import loginBackground from '../../assets/images/loginpage.png';
 
 const apiClient = axios.create({
   baseURL: 'https://playdatesport.com/api',
@@ -112,7 +114,13 @@ const LoginForm = () => {
   }
 
   return (
-    <div className='login-container'>
+    <>
+    {/* <Header></Header> */}
+    <div className='login-container'style={{
+      backgroundImage: `url(${loginBackground})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
       <div className="login-box">
         {/* <div className="logo">
           <img src={logo} alt="Logo" />
@@ -162,9 +170,11 @@ const LoginForm = () => {
                 value={forgotEmail}
                 onChange={(e) => setForgotEmail(e.target.value)}
               />
-              <button type='button' className='sign-in-button' onClick={handleForgotPassword}>
-                Send Reset Link
-              </button>
+              <div className="button-container">
+                <button type='button' className='sign-in-button' onClick={handleForgotPassword}>
+                  Send Reset Link
+                </button>
+              </div>
               <div className="forgot-password" onClick={handleBack}>
                 Back to Login
               </div>
@@ -196,6 +206,7 @@ const LoginForm = () => {
         </div> */}
       </div>
     </div>
+    </>
   );
 };
 

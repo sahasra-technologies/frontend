@@ -5,6 +5,8 @@ import '../Login/Login';
 import logo from '../../assets/images/image.png';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from 'react-toastify';
+import loginBackground from '../../assets/images/loginpage.png';
+import Header from "@/components/Header";
 
 const apiClient = axios.create({
   baseURL: 'https://playdatesport.com/api',
@@ -71,7 +73,11 @@ const Register = ({ setIsLoading }) => {  //{ setIsLoading }
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container" style={{
+      backgroundImage: `url(${loginBackground})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
       <div className="reg-box">
         <h2 className="login-title">
           <img src={logo} alt="Logo" /><br />
@@ -146,7 +152,7 @@ const Register = ({ setIsLoading }) => {  //{ setIsLoading }
             I agree to the <span className="terms-link" onClick={() => setShowTerms(true)}>Terms and Conditions</span> and <span className="terms-link" onClick={() => setShowPrivacy(true)}>Privacy Policy</span>
           </label>
         </div>
-
+        <div className="button-container">
         <button
           type="button"
           className="sign-in-button"
@@ -156,6 +162,7 @@ const Register = ({ setIsLoading }) => {  //{ setIsLoading }
         >
           Register
         </button>
+        </div>
 
         <div className="forgot-password" onClick={() => navigate('/login')}>
           Back to Login

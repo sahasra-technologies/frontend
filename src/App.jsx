@@ -22,7 +22,8 @@ import VenueDetails from "./pages/VenueLayout/VenueDetails.jsx";
 import RegistrationForm from "./pages/VenueLayout/RegistrationForm.jsx";
 import MatchSchedule from "./pages/MatchSchedule.jsx";
 import MatchPage from "./pages/Match/MatchPage.jsx";
-import TournamentPage from "./pages/Tournaments/TournamentsPage.jsx"
+import TournamentPage from "./pages/Tournaments/TournamentsPage.jsx";
+import Header from "@/components/Header";
 
 import NotFound from "./pages/NotFound.jsx";
 import CustomSpinner from './components/Spinner/CustomSpinner';
@@ -42,7 +43,7 @@ function LayoutWrapper({ children }) {
 
   return (
     <div className={`app-container ${theme}`}>
-      {/* {!hideLayout && <Navbar />} */}
+      {!hideLayout && <Header />}
       {children}
       {/* {!hideLayout && <Footer />} */}
     </div>
@@ -85,7 +86,7 @@ const App = () => {
                   <Route path="/about-us" element={<LayoutWrapper><AboutUs /></LayoutWrapper>} />
 
                   {/* Authentication */}
-                  <Route path="/login" element={<LoginForm />} />
+                  <Route path="/login" element={<LayoutWrapper><LoginForm /></LayoutWrapper>} />
                   <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/register" element={<Register setIsLoading={setIsLoading} />} />
 
