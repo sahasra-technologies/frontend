@@ -16,9 +16,13 @@ import ResetPassword from './pages/ResetPassword/ResetPassword.jsx';
 import AddTeamDetails from './pages/AddTeamDetails/AddTeamDetails.jsx';
 import GameDetailsPage from "./pages/GameDetails.jsx";
 import VenueLayout from './pages/VenueLayout/VenueLayout.jsx';
-// import GroundVenueDetails from './pages/GroundVenueDetails/GroundVenueDetails.jsx';
-// import GroundTournamentRules from './pages/GroundTournamentRules/GroundTournamentRules.jsx';
-// import VenueDetails from "./pages/VenueLayout/VenueDetails.jsx";
+import GroundVenueDetails from './pages/GroundVenueDetails/GroundVenueDetails.jsx';
+import GroundTournamentRules from './pages/GroundTournamentRules/GroundTournamentRules.jsx';
+import VenueDetails from "./pages/VenueLayout/VenueDetails.jsx";
+import RegistrationForm from "./pages/VenueLayout/RegistrationForm.jsx";
+import MatchSchedule from "./pages/MatchSchedule.jsx";
+import MatchPage from "./pages/Match/MatchPage.jsx";
+import TournamentPage from "./pages/Tournaments/TournamentsPage.jsx"
 
 import NotFound from "./pages/NotFound.jsx";
 import CustomSpinner from './components/Spinner/CustomSpinner';
@@ -86,12 +90,19 @@ const App = () => {
                   <Route path="/register" element={<Register setIsLoading={setIsLoading} />} />
 
                   {/* APP */}
+                  <Route path="/tournaments" element={<TournamentPage setIsLoading={setIsLoading} />} />
                   <Route path="/add-team" element={<AddTeamDetails setIsLoading={setIsLoading}/>} />
                   <Route path="/tournaments/:id" element={<GameDetailsPage setIsLoading={setIsLoading} />} />
                   <Route path="/venue/:id" element={<VenueLayout setIsLoading={setIsLoading} />} />
-                  {/* <Route path="/venue/:id/details" element={<GroundVenueDetails setIsLoading={setIsLoading} />} /> */}
-                  {/* <Route path="/venue/:id/tournament-rules" element={<GroundTournamentRules setIsLoading={setIsLoading} />} /> */}
-                  {/* <Route path="/venue-details/:id" element={<VenueDetails setIsLoading={setIsLoading} />} /> */}
+                  <Route path="/venue/:id/details" element={<GroundVenueDetails setIsLoading={setIsLoading} />} />
+                  <Route path="/venue/:id/tournament-rules" element={<GroundTournamentRules setIsLoading={setIsLoading} />} />
+                  <Route path="/venue-details/:id" element={<VenueDetails setIsLoading={setIsLoading} />} />
+                  <Route
+                    path="/venue/:id/register"
+                    element={<RegistrationForm setIsLoading={setIsLoading}/>}
+                  />
+                  <Route path="/match-schedule" element={<MatchSchedule setIsLoading={setIsLoading} />} />
+                  <Route path='/match-page' element={<MatchPage setIsLoading={setIsLoading} />} />
 
                   {/* Not Found */}
                   <Route path="*" element={<NotFound />} />
