@@ -118,6 +118,7 @@ const Header = () => {
     { label: "Services", href: "#", color: "text-sports-green" },
     { label: "Coaching", href: "#", color: "text-sports-orange" },
     { label: "Community", href: "#", color: "text-sports-purple" },
+    // { label: "Tournaments", href: "/tournaments", color: "text-sports-blue" },
   ];
 
   const LocationDropdown = () => (
