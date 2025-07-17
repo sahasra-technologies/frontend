@@ -4,6 +4,7 @@
   align-items: center;
   padding: 40px;
   background-color: #f9f9f9;
+  padding-top: 128px;
 }
 
 /* Tab Buttons */
@@ -81,6 +82,7 @@
 @media (max-width: 1024px) {
   .venue-layout-wrapper {
     padding: 24px;
+    padding-top: 128px;
   }
 
   .venue-tab-content {
@@ -97,6 +99,7 @@
 @media (max-width: 600px) {
   .venue-layout-wrapper {
     padding: 16px;
+    padding-top: 128px;
   }
 
   .venue-card,

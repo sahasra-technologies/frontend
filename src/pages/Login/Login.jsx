@@ -7,7 +7,7 @@ import logo from '../../assets/images/image.png';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import './Login.css';
 import { toast } from 'react-toastify';
-// import Header from "@/components/Header";
+import Header from "@/components/Header";
 import loginBackground from '../../assets/images/loginpage.png';
 
 const apiClient = axios.create({
@@ -115,7 +115,7 @@ const LoginForm = () => {
 
   return (
     <>
-    {/* <Header></Header> */}
+    <Header></Header>
     <div className='login-container'style={{
       backgroundImage: `url(${loginBackground})`,
       backgroundSize: 'cover',
@@ -129,7 +129,8 @@ const LoginForm = () => {
           {!showForgot ? (
             <>
               <h2 className="login-title">
-                <img src={logo} alt="Logo" /><br/>
+                {/* <img src={logo} alt="Logo" /> */}
+                <br/>
                 Login</h2>
               <input
                 type="email"

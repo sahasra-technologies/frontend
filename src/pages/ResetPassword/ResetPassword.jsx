@@ -5,6 +5,7 @@ import '../Login/Login.css'
 import { toast } from 'react-toastify';
 import logo from '../../assets/images/image.png';
 import loginBackground from '../../assets/images/loginpage.png';
+import Header from "@/components/Header";
 
 const apiClient = axios.create({
     baseURL: 'https://playdatesport.com/api',
@@ -57,14 +58,16 @@ const ResetPassword = () =>{
   };
 
     return(
-        <div className="login-container" style={{
+      <>
+      <Header></Header>
+        <div className="reg-container" style={{
           backgroundImage: `url(${loginBackground})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}>
       <div className="login-box">
         <h2 className="login-title">
-          <img src={logo} alt="Logo" /><br />
+          {/* <img src={logo} alt="Logo" /><br /> */}
           Reset Password
         </h2>
         {/* <h2 className="login-title">Reset Password</h2> */}
@@ -90,13 +93,26 @@ const ResetPassword = () =>{
           <li>At least 1 special character (@$!%*?#&)</li>
           <li>New Password and Conform Passwrod should be same</li>
         </ul>
+
+        <div className="reg_password-hint-list-mobile">
+          <ul>
+          <li>Minimum 8 characters</li>
+          <li>At least 1 uppercase letter (A-Z)</li>
+          <li>At least 1 lowercase letter (a-z)</li>
+          <li>At least 1 number (0-9)</li>
+          <li>At least 1 special character (@$!%*?#&)</li>
+          <li>New Password and Conform Passwrod should be same</li>
+        </ul>
+        </div>
+
         <div className="button-container">
-          <button type="button" className="sign-in-button" onClick={handleReset} >
-            Update Password
-          </button>
+        <button type="button" className="sign-in-button" onClick={handleReset} >
+          Update Password
+        </button>
         </div>
       </div>
     </div>
+    </>
     )
 }
 export default ResetPassword;

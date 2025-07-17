@@ -85,13 +85,13 @@ const GameDetailsPage = ({ setIsLoading }) => {
               <small>Stadium & surroundings</small>
             </div>
           </button>
-          <button onClick={() => updateTab('schedule')} className={activeTab === 'schedule' ? 'active' : ''}>
+          {/* <button onClick={() => updateTab('schedule')} className={activeTab === 'schedule' ? 'active' : ''}>
             <div className="tab-icon"><FaCalendarAlt /></div>
             <div>
               Match Schedule
               <small>Check game dates</small>
             </div>
-          </button>
+          </button> */}
           <button onClick={() => updateTab('rules')} className={activeTab === 'rules' ? 'active' : ''}>
             <div className="tab-icon"><FcRules /></div>
             <div>
@@ -144,7 +144,7 @@ const GameDetailsPage = ({ setIsLoading }) => {
             </div>
           )}
 
-          {activeTab === 'schedule' && <MatchPage setIsLoading={setIsLoading} id={id} />}
+          {/* {activeTab === 'schedule' && <MatchPage setIsLoading={setIsLoading} id={id} />} */}
           {activeTab === 'rules' && <GroundTournamentRules id={id} setIsLoading={setIsLoading} />}
         </div>
         {!grounds.length && !error && <div className="no-data-msg">No grounds found.</div>} 

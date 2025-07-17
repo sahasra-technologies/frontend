@@ -86,21 +86,21 @@ const App = () => {
                   <Route path="/about-us" element={<LayoutWrapper><AboutUs /></LayoutWrapper>} />
 
                   {/* Authentication */}
-                  <Route path="/login" element={<LayoutWrapper><LoginForm /></LayoutWrapper>} />
+                  <Route path="/login" element={<LoginForm />} />
                   <Route path="/reset-password" element={<ResetPassword />} />
-                  <Route path="/register" element={<Register setIsLoading={setIsLoading} />} />
+                  <Route path="/register" element={<LayoutWrapper><Register setIsLoading={setIsLoading} /></LayoutWrapper>} />
 
                   {/* APP */}
-                  <Route path="/tournaments" element={<TournamentPage setIsLoading={setIsLoading} />} />
-                  <Route path="/add-team" element={<AddTeamDetails setIsLoading={setIsLoading}/>} />
-                  <Route path="/tournaments/:id" element={<GameDetailsPage setIsLoading={setIsLoading} />} />
-                  <Route path="/venue/:id" element={<VenueLayout setIsLoading={setIsLoading} />} />
+                  <Route path="/tournaments" element={<LayoutWrapper><TournamentPage setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                  <Route path="/add-team" element={<LayoutWrapper><AddTeamDetails setIsLoading={setIsLoading}/></LayoutWrapper>} />
+                  <Route path="/tournaments/:id" element={<LayoutWrapper><GameDetailsPage setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                  <Route path="/venue/:id" element={<LayoutWrapper><VenueLayout setIsLoading={setIsLoading} /></LayoutWrapper>} />
                   <Route path="/venue/:id/details" element={<GroundVenueDetails setIsLoading={setIsLoading} />} />
                   <Route path="/venue/:id/tournament-rules" element={<GroundTournamentRules setIsLoading={setIsLoading} />} />
                   <Route path="/venue-details/:id" element={<VenueDetails setIsLoading={setIsLoading} />} />
                   <Route
                     path="/venue/:id/register"
-                    element={<RegistrationForm setIsLoading={setIsLoading}/>}
+                    element={<LayoutWrapper><RegistrationForm setIsLoading={setIsLoading}/></LayoutWrapper>}
                   />
                   <Route path="/match-schedule" element={<MatchSchedule setIsLoading={setIsLoading} />} />
                   <Route path='/match-page' element={<MatchPage setIsLoading={setIsLoading} />} />

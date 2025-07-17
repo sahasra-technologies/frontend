@@ -126,9 +126,9 @@ const TournamentPage = ({ setIsLoading }) => {
   return (
     <div className={`main-container ${theme}`}>
       <div className="header-container">
-        <h1 className="main-heading">
+        {/* <h1 className="main-heading">
           Released <span>Tournaments</span>
-        </h1>
+        </h1> */}
         {isAuthenticated && (
         <button className="add-team-button" onClick={handleAddPlayer}>
           Your Team

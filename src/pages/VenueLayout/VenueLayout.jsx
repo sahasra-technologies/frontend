@@ -27,7 +27,7 @@ const VenueLayout = ({ setIsLoading }) => {
             <small>Stadium & surroundings</small>
           </div>
         </button>
-        <button
+        {/* <button
           onClick={() => setActiveTab('schedule')}
           className={activeTab === 'schedule' ? 'active' : ''}
         >
@@ -36,7 +36,7 @@ const VenueLayout = ({ setIsLoading }) => {
             Match Schedule
             <small>Check game dates</small>
           </div>
-        </button>
+        </button> */}
         <button
           onClick={() => setActiveTab('rules')}
           className={activeTab === 'rules' ? 'active' : ''}

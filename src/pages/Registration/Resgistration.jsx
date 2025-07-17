@@ -73,14 +73,15 @@ const Register = ({ setIsLoading }) => {  //{ setIsLoading }
   };
 
   return (
-    <div className="login-container" style={{
+    <div className="reg-container" style={{
       backgroundImage: `url(${loginBackground})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }}>
       <div className="reg-box">
         <h2 className="login-title">
-          <img src={logo} alt="Logo" /><br />
+          {/* <img src={logo} alt="Logo" /> */}
+          <br />
           Register
         </h2>
 

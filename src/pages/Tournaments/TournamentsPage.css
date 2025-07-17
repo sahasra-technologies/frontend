@@ -5,11 +5,13 @@
 
 .main-container.light {
   background-color: #ffffff;
+  padding-top: 128px;
   color: #000000;
 }
 
 .main-container.dark {
   background-color: #121212;
+  padding-top: 128px;
   color: #ffffff;
 }
 
