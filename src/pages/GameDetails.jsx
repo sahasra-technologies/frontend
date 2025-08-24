@@ -35,9 +35,8 @@ const GameDetailsPage = ({ setIsLoading }) => {
 
   useEffect(() => {
     const fetchGameDetails = async () => {
-      setIsLoading(false);
       try {
-        setIsLoading(false); // Start spinner
+        setIsLoading(true); // Start spinner
         const response = await axios.post(API_URL, { id }, {
           headers: { 'Content-Type': 'application/json' }
         });

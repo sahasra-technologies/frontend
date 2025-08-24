@@ -13,24 +13,28 @@ const TournamentPage = ({ setIsLoading }) => {
   const [tournamentData, setTournamentData] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [webSocketLoading, setWebSocketLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setWebSocketLoading(true);
-        setIsLoading(false);
+        setIsLoading(true);
         const response = await axios.get("https://playdatesport.com/api/Tournament/tournaments/");
         console.log("Response data:", response.data);
         setTournamentData(response.data)
-        setWebSocketLoading(false);
-        setIsLoading(false);
+        
+        
       } catch (err) {
         console.error("Error fetching tournaments:", err);
+      }finally{
+        setIsLoading(false);
+        setIsLoaded(true)
       }
     };
 
     fetchData();
-  }, []); // Empty dependency array means this runs once when the component mounts
+  }, [setIsLoading]); // Empty dependency array means this runs once when the component mounts
 
     
 
@@ -138,9 +142,9 @@ const TournamentPage = ({ setIsLoading }) => {
 
       <div className="tournament-container">
         <h1 className="sub-heading">PICK YOUR GAME</h1>
-        {/* <p className="sub-title">PICK YOUR GAME</p> */}
+        
 
-        {webSocketLoading && <p>Connecting to server...</p>}
+        {/* {webSocketLoading && <p>Connecting to server...</p>} */}
 
         <div className="game-grid">
           {tournamentData.length > 0 ? (
@@ -157,9 +161,9 @@ const TournamentPage = ({ setIsLoading }) => {
                 <div className="overlay-text">{game.name}</div>
               </div>
             ))
-          ) : (
+          ) : isLoaded ? (
             <p>No tournaments available right now.</p>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
