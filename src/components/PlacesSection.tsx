@@ -104,7 +104,7 @@ const VenueCard = ({
   );
 };
 
-const PlacesSection = () => {
+const PlacesSection = ({setIsLoading}) => {
   const venues = [
     {
       name: "Nisha Match Swimming Pool",

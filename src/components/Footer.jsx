@@ -44,9 +44,10 @@ const Footer = () => {
               className="lg:col-span-1"
             >
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-sports-blue rounded-lg flex items-center justify-center">
+                {/* <div className="w-8 h-8 bg-sports-blue rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">AH</span>
-                </div>
+                </div> */}
+                <img src="/Play_primary.svg" alt="logo" className="h-8 w-auto" />
                 <span className="text-xl font-bold">PlayDate</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-sm">

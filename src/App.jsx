@@ -76,7 +76,7 @@ const App = () => {
             <BrowserRouter>
               <Routes>
                 {/* home */}
-                <Route path="/" element={<LayoutWrapper><Index /></LayoutWrapper>} />
+                <Route path="/" element={<LayoutWrapper><Index setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/about-us" element={<LayoutWrapper><AboutUs /></LayoutWrapper>} />
 
                 {/* Authentication */}

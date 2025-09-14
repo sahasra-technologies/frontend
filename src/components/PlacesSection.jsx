@@ -5,20 +5,18 @@ import {
   Star,
   Clock,
   Users,
-  ArrowRight,
   Heart,
-  Share2,
   Bookmark,
-  Calendar,
   Zap,
 } from "lucide-react";
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   InteractiveCard,
   AnimatedSection,
   MagneticButton,
 } from "./AnimationWrapper";
+import axios from "axios";
 
 const VenueCard = ({
   name,
@@ -27,10 +25,13 @@ const VenueCard = ({
   sport,
   price,
   availability,
-  features,
+  features = [],
   color,
   index,
+  game,
   image,
+  status,
+  id,
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -40,7 +41,6 @@ const VenueCard = ({
   const handleLike = (e) => {
     e.stopPropagation();
     setIsLiked(!isLiked);
-    // Haptic feedback
     if (navigator.vibrate) {
       navigator.vibrate(50);
     }
@@ -76,9 +76,10 @@ const VenueCard = ({
           }}
           className="relative"
         >
-          {/* Enhanced image section */}
-          <div className={`h-56 ${color} relative overflow-hidden`}>
-            {/* Gradient overlay */}
+          {/* Image section */}
+          <div
+            className={`h-56 ${color || "bg-gray-200"} relative overflow-hidden`}
+          >
             <motion.div
               className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"
               initial={{ opacity: 0.6 }}
@@ -139,16 +140,16 @@ const VenueCard = ({
                   {sport === "Swimming"
                     ? "🏊‍♂️"
                     : sport === "Football"
-                      ? "⚽"
-                      : sport === "Tennis"
-                        ? "🎾"
-                        : "🏸"}
+                    ? "⚽"
+                    : sport === "Tennis"
+                    ? "🎾"
+                    : "🏸"}
                 </motion.span>
                 {sport}
               </Badge>
             </motion.div>
 
-            {/* Rating badge */}
+            {/* Rating */}
             <motion.div
               initial={{ x: 20, opacity: 0 }}
               animate={isInView ? { x: 0, opacity: 1 } : {}}
@@ -163,7 +164,7 @@ const VenueCard = ({
               </div>
             </motion.div>
 
-            {/* Venue info overlay */}
+            {/* Venue info */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
@@ -178,37 +179,9 @@ const VenueCard = ({
                 <span className="text-sm drop-shadow">{location}</span>
               </div>
             </motion.div>
-
-            {/* Hover overlay with quick actions */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              className="absolute inset-0 bg-black/30 flex items-center justify-center"
-            >
-              <motion.div
-                initial={{ scale: 0 }}
-                whileHover={{ scale: 1 }}
-                className="flex space-x-3"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="bg-white/20 backdrop-blur-md text-white p-3 rounded-full hover:bg-white/30 transition-all"
-                >
-                  <Share2 className="w-5 h-5" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="bg-white/20 backdrop-blur-md text-white p-3 rounded-full hover:bg-white/30 transition-all"
-                >
-                  <Calendar className="w-5 h-5" />
-                </motion.button>
-              </motion.div>
-            </motion.div>
           </div>
 
-          {/* Enhanced content section */}
+          {/* Content section */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={isInView ? { y: 0, opacity: 1 } : {}}
@@ -218,9 +191,10 @@ const VenueCard = ({
             {/* Info row */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center text-gray-600 space-x-4">
+                <span className="text-sm font-medium">{name}</span>
                 <div className="flex items-center">
                   <Clock className="w-4 h-4 mr-1 text-green-500" />
-                  <span className="text-sm font-medium">{availability}</span>
+                  <span className="text-sm font-medium">{game}</span>
                 </div>
                 <div className="flex items-center">
                   <Users className="w-4 h-4 mr-1 text-blue-500" />
@@ -234,9 +208,9 @@ const VenueCard = ({
               />
             </div>
 
-            {/* Features with enhanced styling */}
+            {/* Features */}
             <div className="flex flex-wrap gap-2 mb-6">
-              {features.map((feature, idx) => (
+              {(features || []).map((feature, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, scale: 0 }}
@@ -255,7 +229,7 @@ const VenueCard = ({
               ))}
             </div>
 
-            {/* Price and actions */}
+            {/* Price & actions */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
@@ -278,9 +252,12 @@ const VenueCard = ({
                     Info
                   </Button>
                 </InteractiveCard>
-                <MagneticButton className="bg-sports-blue hover:bg-sports-blue-dark text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
-                  Book Now
-                </MagneticButton>
+                {(status == 'Pending' || status == 'Not Scheduled') && (
+                  <MagneticButton className="bg-sports-blue hover:bg-sports-blue-dark text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                    Book Now
+                  </MagneticButton>
+                )}
+                
               </div>
             </motion.div>
           </motion.div>
@@ -290,197 +267,74 @@ const VenueCard = ({
   );
 };
 
-const PlacesSection = () => {
-  const venues = [
-    {
-      name: "Nisha Match Swimming Pool",
-      location: "8 km away",
-      rating: 4.9,
-      sport: "Swimming",
-      price: 500,
-      availability: "Today",
-      features: ["Changing Rooms", "Parking", "Coaching"],
-      color: "bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600",
-    },
-    {
-      name: "Kickit - The Social Club",
-      location: "12 km away",
-      rating: 4.8,
-      sport: "Football",
-      price: 800,
-      availability: "Tomorrow",
-      features: ["Pro Equipment", "Coaching", "Locker Room"],
-      color: "bg-gradient-to-br from-green-400 via-green-500 to-green-600",
-    },
-    {
-      name: "Sports Zone Tennis Courts",
-      location: "5 km away",
-      rating: 4.9,
-      sport: "Tennis",
-      price: 600,
-      availability: "Today",
-      features: ["Night Play", "Equipment", "Refreshments"],
-      color: "bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600",
-    },
-    {
-      name: "Kicks Football Arena",
-      location: "15 km away",
-      rating: 4.7,
-      sport: "Football",
-      price: 1200,
-      availability: "This Week",
-      features: ["Premium Ground", "Advanced Booking", "Tournament Ready"],
-      color: "bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600",
-    },
-  ];
-
-  const filterOptions = [
-    "All Sports",
-    "Swimming",
-    "Football",
-    "Tennis",
-    "Basketball",
-  ];
+const PlacesSection = ({ setIsLoading }) => {
+  const [filterOptions, setFilterOptions] = useState(["All Sports"]);
+  const [venues, setVenues] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All Sports");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.put(
+          "https://playdatesport.com/api/Tournament/tournaments/",
+          { game: activeFilter === "All Sports" ? "" : activeFilter },
+          { headers: { "Content-Type": "application/json" } }
+        );
+
+        const normalizedVenues = (response.data.data || []).map((v) => ({
+          ...v,
+          features: v.features || [],
+        }));
+
+        setFilterOptions(["All Sports", ...(response.data.games || [])]);
+        setVenues(normalizedVenues);
+      } catch (err) {
+        console.error("Error fetching tournaments:", err);
+      }
+    };
+
+    fetchData();
+  }, [activeFilter]); // ✅ re-run whenever activeFilter changes
 
   return (
     <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
-      {/* Enhanced background elements */}
-      <motion.div
-        className="absolute top-20 right-20 w-40 h-40 bg-gradient-to-r from-sports-blue/10 to-sports-purple/10 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.3, 0.6, 0.3],
-          x: [0, 20, 0],
-        }}
-        transition={{ duration: 6, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute bottom-20 left-20 w-32 h-32 bg-gradient-to-r from-sports-orange/10 to-sports-red/10 rounded-full blur-2xl"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.6, 0.3, 0.6],
-          y: [0, -15, 0],
-        }}
-        transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-      />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Enhanced section header */}
+        {/* Section header */}
         <AnimatedSection className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Amazing Places to Play!
-              <motion.span
-                className="inline-block ml-4 text-4xl"
-                animate={{
-                  rotate: [0, 10, -10, 0],
-                  scale: [1, 1.1, 1],
-                }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-              >
-                🏟️
-              </motion.span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              From cozy local courts to professional facilities - find the
-              perfect spot for your game with our curated selection of premium
-              venues!
-            </p>
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            Amazing Places to Play! 🏟️
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            From cozy local courts to professional facilities - find the perfect
+            spot for your game with our curated selection of premium venues!
+          </p>
 
-            {/* Filter buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="flex flex-wrap justify-center gap-3 mb-8"
-            >
-              {filterOptions.map((filter, index) => (
-                <motion.button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
-                    activeFilter === filter
-                      ? "bg-sports-blue text-white shadow-lg"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-                  }`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  {filter}
-                </motion.button>
-              ))}
-            </motion.div>
-
-            <div className="flex justify-center">
-              <motion.div
+          {/* Filter buttons */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            {filterOptions.map((filter) => (
+              <motion.button
+                key={filter}
+                onClick={() => setActiveFilter(filter)} // ✅ updates state
                 whileHover={{ scale: 1.05 }}
-                className="inline-flex items-center text-sports-blue hover:text-sports-blue-dark font-semibold cursor-pointer"
+                whileTap={{ scale: 0.95 }}
+                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                  activeFilter === filter
+                    ? "bg-sports-blue text-white shadow-lg"
+                    : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
+                }`}
               >
-                See All Venues
-                <ArrowRight className="w-5 h-5 ml-2" />
-                <motion.div
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="ml-1"
-                >
-                  →
-                </motion.div>
-              </motion.div>
-            </div>
-          </motion.div>
+                {filter}
+              </motion.button>
+            ))}
+          </div>
         </AnimatedSection>
 
-        {/* Enhanced venues grid */}
+        {/* Venues grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {venues.map((venue, index) => (
             <VenueCard key={index} {...venue} index={index} />
           ))}
         </div>
-
-        {/* Enhanced pagination with interactive dots */}
-        <AnimatedSection delay={0.4} className="text-center mt-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="flex justify-center gap-3 mb-8"
-          >
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                whileHover={{ scale: 1.3 }}
-                className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
-                  i === 1
-                    ? "bg-sports-blue scale-125"
-                    : "bg-gray-300 hover:bg-gray-400"
-                }`}
-              />
-            ))}
-          </motion.div>
-
-          {/* Load more button */}
-          <MagneticButton className="bg-sports-blue text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
-            Load More Venues
-            <motion.span
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="inline-block ml-2"
-            >
-              ⚡
-            </motion.span>
-          </MagneticButton>
-        </AnimatedSection>
       </div>
     </section>
   );

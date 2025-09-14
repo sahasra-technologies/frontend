@@ -9,13 +9,13 @@ import InteractiveHub from "@/components/InteractiveHub";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
-const Index = () => {
+const Index = ({ setIsLoading }) => {
   return (
     <div className="min-h-screen bg-white">
       {/* <Header /> */}
       <HeroSection />
       <StatsSection />
-      <PlacesSection />
+      <PlacesSection setIsLoading={setIsLoading} />
       <AchievementsSection />
       <ActionSection />
       <SportsCategories />
