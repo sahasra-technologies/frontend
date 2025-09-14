@@ -8,6 +8,7 @@ import {
   Heart,
   Bookmark,
   Zap,
+  Volleyball
 } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
@@ -17,8 +18,10 @@ import {
   MagneticButton,
 } from "./AnimationWrapper";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const VenueCard = ({
+  id,
   name,
   location,
   rating,
@@ -31,7 +34,8 @@ const VenueCard = ({
   game,
   image,
   status,
-  id,
+  onInfoClick,   // ✅ callback from parent
+  onBookClick,   // ✅ callback from parent
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -193,13 +197,13 @@ const VenueCard = ({
               <div className="flex items-center text-gray-600 space-x-4">
                 <span className="text-sm font-medium">{name}</span>
                 <div className="flex items-center">
-                  <Clock className="w-4 h-4 mr-1 text-green-500" />
+                  <Volleyball className="w-4 h-4 mr-1 text-green-500" />
                   <span className="text-sm font-medium">{game}</span>
                 </div>
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <Users className="w-4 h-4 mr-1 text-blue-500" />
                   <span className="text-sm font-medium">8 max</span>
-                </div>
+                </div> */}
               </div>
               <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
@@ -248,12 +252,15 @@ const VenueCard = ({
                     size="sm"
                     variant="outline"
                     className="hover:bg-gray-50 transition-all duration-300"
+                    onClick={() => onInfoClick?.(id)}
                   >
                     Info
                   </Button>
                 </InteractiveCard>
                 {(status == 'Pending' || status == 'Not Scheduled') && (
-                  <MagneticButton className="bg-sports-blue hover:bg-sports-blue-dark text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                  <MagneticButton 
+                  onClick={() => onBookClick?.(id)}
+                  className="bg-sports-blue hover:bg-sports-blue-dark text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                     Book Now
                   </MagneticButton>
                 )}
@@ -271,6 +278,19 @@ const PlacesSection = ({ setIsLoading }) => {
   const [filterOptions, setFilterOptions] = useState(["All Sports"]);
   const [venues, setVenues] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All Sports");
+  const navigate = useNavigate();
+
+  const handleInfoClick = (id) => {
+    console.log("Info clicked for venue:", id);
+    navigate(`/tournaments/${id}`);
+    // 👉 You can navigate or open a modal here
+  };
+
+  const handleBookClick = (id) => {
+    console.log("Book Now clicked for venue:", id);
+    navigate(`/tournaments/${id}`);
+    // 👉 Trigger booking flow here
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -332,7 +352,11 @@ const PlacesSection = ({ setIsLoading }) => {
         {/* Venues grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {venues.map((venue, index) => (
-            <VenueCard key={index} {...venue} index={index} />
+            <VenueCard key={index} 
+              {...venue}
+              index={index} 
+              onInfoClick={handleInfoClick}
+              onBookClick={handleBookClick}/>
           ))}
         </div>
       </div>
