@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Navigation } from 'lucide-react';
 import gameImg from '../../assets/Venues/gamelogo.png';
 
-const GroundVenueDetails = () => {
+const GroundVenueDetails = ({ setIsLoading }) => {
   const { id } = useParams(); // Assuming dynamic route like /venue/:id
   const navigate = useNavigate();
   const [venue, setVenue] = useState(null);
@@ -12,12 +12,15 @@ const GroundVenueDetails = () => {
   useEffect(() => {
     const fetchVenueDetails = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch('https://playdatesport.com/api/Tournament/tournaments/');
         const data = await response.json();
         const selectedVenue = data.find((item) => item.id.toString() === id);
         setVenue(selectedVenue);
       } catch (error) {
         console.error('Error fetching venue details:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 

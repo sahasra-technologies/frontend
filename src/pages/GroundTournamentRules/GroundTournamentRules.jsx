@@ -15,7 +15,7 @@ const GroundTournamentRules = ({ setIsLoading }) => {
  useEffect(() => {
   const fetchData = async () => {
     try {
-      setIsLoading(false);
+      setIsLoading(true);
 
       const response = await fetch(`https://playdatesport.com/api/Tournament/tournaments/?id=${id}`);
       if (!response.ok) {
