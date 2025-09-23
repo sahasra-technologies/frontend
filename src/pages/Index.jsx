@@ -15,12 +15,12 @@ const Index = () => {
       {/* <Header /> */}
       <HeroSection />
       {/* <StatsSection /> */}
-      <PlacesSection />
-      <AchievementsSection />
+      <PlacesSection  />
+      {/* <AchievementsSection /> */}
       <ActionSection />
-      <SportsCategories />
+      {/* <SportsCategories /> */}
       <InteractiveHub />
-      <CTASection />
+      {/* <CTASection /> */}
       <Footer />
     </div>
   );

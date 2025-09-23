@@ -111,7 +111,7 @@ const HeroSection = () => {
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
-      <motion.div
+      {/* <motion.div
         className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gradient-to-r from-sports-orange/20 to-sports-red/20 rounded-full blur-3xl"
         animate={{
           scale: [1.2, 1, 1.2],
@@ -124,7 +124,7 @@ const HeroSection = () => {
           ease: "easeInOut",
           delay: 2,
         }}
-      />
+      /> */}
 
       {/* Floating sports icons with enhanced animations */}
       {floatingIcons.map((item, index) => (
@@ -226,7 +226,8 @@ const HeroSection = () => {
             </div>
 
             {/* Enhanced Search bar */}
-            <motion.div
+            {/* Search suggestions */}
+            {/* <motion.div
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
@@ -278,7 +279,7 @@ const HeroSection = () => {
                   </MagneticButton>
                 </div>
 
-                {/* Search suggestions */}
+                
                 {isSearchFocused && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -304,10 +305,10 @@ const HeroSection = () => {
                   </motion.div>
                 )}
               </motion.form>
-            </motion.div>
+            </motion.div> */}
 
             {/* Enhanced Action buttons */}
-            <motion.div
+            {/* <motion.div
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.8 }}
@@ -335,7 +336,7 @@ const HeroSection = () => {
                   Browse Venues
                 </Button>
               </InteractiveCard>
-            </motion.div>
+            </motion.div> */}
           </AnimatedSection>
 
           {/* Right content section with floating elements */}

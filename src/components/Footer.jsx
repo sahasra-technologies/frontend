@@ -1,31 +1,48 @@
 import { motion } from "framer-motion";
 import { Facebook, Twitter, Instagram, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom"; // ✅ for navigation
 
 const Footer = () => {
   const footerSections = [
     {
       title: "Platform",
       links: [
-        "Find Players",
-        "Book Venues",
-        "Join Games",
-        "Create Events",
-        "Tournaments",
+        // { name: "Find Players", path: "/find-players" },
+        // { name: "Book Venues", path: "/book-venues" },
+        // { name: "Join Games", path: "/join-games" },
+        // { name: "Create Events", path: "/create-events" },
+        { name: "Tournaments", path: "/tournaments" },
       ],
     },
-    {
-      title: "Support",
-      links: [
-        "Help Center",
-        "Contact Us",
-        "Safety",
-        "Community Guidelines",
-        "Terms & Privacy",
-      ],
-    },
+    // {
+    //   title: "Support",
+    //   links: [
+    //     { name: "Help Center", path: "/help" },
+    //     { name: "Contact Us", path: "/contact" },
+    //     { name: "Safety", path: "/safety" },
+    //     { name: "Community Guidelines", path: "/guidelines" },
+    //     { name: "Terms & Privacy", path: "/terms" },
+    //   ],
+    // },
     {
       title: "Connect",
-      links: ["About Us", "Blog", "Careers", "Press", "Partnerships"],
+      links: [
+        { name: "About Us", path: "/about-us" },
+        // { name: "Blog", path: "/blog" },
+        // { name: "Careers", path: "/careers" },
+        // { name: "Press", path: "/press" },
+        // { name: "Partnerships", path: "/partnerships" },
+      ],
+    },
+    {
+      title: "Policies",
+      links: [
+        { name: "Privacy Policy", path: "/privacy" },
+        { name: "Terms of Service", path: "/terms" },
+        { name: "Cookie Policy", path: "/cookes" },
+        // { name: "Press", path: "/press" },
+        // { name: "Partnerships", path: "/partnerships" },
+      ],
     },
   ];
 
@@ -44,41 +61,22 @@ const Footer = () => {
               className="lg:col-span-1"
             >
               <div className="flex items-center space-x-2 mb-4">
-                {/* <div className="w-8 h-8 bg-sports-blue rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">AH</span>
-                </div> */}
                 <img src="/Play_primary.svg" alt="logo" className="h-8 w-auto" />
                 <span className="text-xl font-bold">PlayDate</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-sm">
-                Connecting sports enthusiasts, one game at a time. Find your
-                perfect sports buddy and amazing venues near you.
+                Connecting sports enthusiasts, one game at a time.
               </p>
               <div className="flex space-x-4">
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-sports-blue transition-colors"
-                >
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-sports-blue transition-colors"
-                >
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-sports-blue transition-colors"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-sports-blue transition-colors"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                </a>
+                {[Facebook, Twitter, Instagram, MessageCircle].map((Icon, i) => (
+                  <a
+                    key={i}
+                    href="#"
+                    className="text-gray-400 hover:text-sports-blue transition-colors"
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                ))}
               </div>
             </motion.div>
 
@@ -95,12 +93,12 @@ const Footer = () => {
                 <ul className="space-y-2">
                   {section.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
-                      <a
-                        href="#"
+                      <Link
+                        to={link.path} // ✅ dynamic endpoint
                         className="text-gray-400 hover:text-white transition-colors"
                       >
-                        {link}
-                      </a>
+                        {link.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -122,31 +120,24 @@ const Footer = () => {
               © 2024 PlayDate. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white text-sm transition-colors"
-              >
+              <p className="text-gray-400 text-sm">
+                Designed and developed by <b>Sahasra</b>
+              </p>
+              {/* <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white text-sm transition-colors"
-              >
+              </Link>
+              <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Terms of Service
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white text-sm transition-colors"
-              >
+              </Link>
+              <Link to="/cookies" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Cookie Policy
-              </a>
+              </Link> */}
             </div>
           </div>
         </motion.div>
       </div>
-
       {/* Chat support button */}
-      <motion.div
+      {/* <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 2, duration: 0.5 }}
@@ -155,7 +146,7 @@ const Footer = () => {
         <button className="bg-sports-blue hover:bg-sports-blue-dark text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
           <MessageCircle className="w-6 h-6" />
         </button>
-      </motion.div>
+      </motion.div> */}
     </footer>
   );
 };
