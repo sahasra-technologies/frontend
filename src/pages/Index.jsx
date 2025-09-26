@@ -8,6 +8,7 @@ import SportsCategories from "@/components/SportsCategories";
 import InteractiveHub from "@/components/InteractiveHub";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import Achievements from "../components/Achievements";
 
 const Index = () => {
   return (
@@ -15,6 +16,7 @@ const Index = () => {
       {/* <Header /> */}
       <HeroSection />
       {/* <StatsSection /> */}
+      <Achievements />
       <ActionSection />
       {/* <AchievementsSection /> */}
       <PlacesSection  />
