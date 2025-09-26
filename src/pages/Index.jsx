@@ -15,9 +15,9 @@ const Index = () => {
       {/* <Header /> */}
       <HeroSection />
       {/* <StatsSection /> */}
-      <PlacesSection  />
-      {/* <AchievementsSection /> */}
       <ActionSection />
+      {/* <AchievementsSection /> */}
+      <PlacesSection  />
       {/* <SportsCategories /> */}
       <InteractiveHub />
       {/* <CTASection /> */}

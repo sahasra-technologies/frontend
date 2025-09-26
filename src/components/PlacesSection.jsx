@@ -251,19 +251,20 @@ const VenueCard = ({
                   <Button
                     size="sm"
                     variant="outline"
-                    className="hover:bg-gray-50 transition-all duration-300"
+                    // className="hover:bg-gray-50 transition-all duration-300"
+                    className="bg-sports-blue hover:bg-sports-blue-dark text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                     onClick={() => onInfoClick?.(id)}
                   >
                     Info
                   </Button>
                 </InteractiveCard>
-                {(status == 'Pending' || status == 'Not Scheduled') && (
+                {/* {(status == 'Pending' || status == 'Not Scheduled') && (
                   <MagneticButton 
                   onClick={() => onBookClick?.(id)}
                   className="bg-sports-blue hover:bg-sports-blue-dark text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                     Book Now
                   </MagneticButton>
-                )}
+                )} */}
                 
               </div>
             </motion.div>
@@ -356,7 +357,8 @@ const PlacesSection = ({ setIsLoading }) => {
               {...venue}
               index={index} 
               onInfoClick={handleInfoClick}
-              onBookClick={handleBookClick}/>
+              onBookClick={handleBookClick}
+              />
           ))}
         </div>
       </div>

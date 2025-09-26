@@ -21,12 +21,24 @@ const GameTile = ({ name, icon, color, index }: GameTileProps) => {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ scale: 1.05, rotate: 2 }}
       whileTap={{ scale: 0.95 }}
-      className={`${color} rounded-2xl p-6 text-center cursor-pointer hover:shadow-lg transition-all duration-300 group`}
+      className={`
+        ${color}
+        rounded-2xl 
+        p-4 sm:p-6 
+        cursor-pointer 
+        hover:shadow-lg 
+        transition-all 
+        duration-300 
+        group
+        flex flex-col items-center justify-center  /* ✅ center content */
+      `}
     >
       <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
         {icon}
       </div>
-      <h3 className="font-bold text-white text-sm">{name}</h3>
+      <h3 className="font-bold text-white text-center text-sm sm:text-base">
+        {name}
+      </h3>
     </motion.div>
   );
 };
@@ -89,7 +101,19 @@ const InteractiveHub = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6">
+        {/* ✅ Responsive grid */}
+        <div
+          className="
+            grid
+            grid-cols-2       /* phones */
+            sm:grid-cols-3    /* small tablets */
+            md:grid-cols-4    /* medium screens */
+            lg:grid-cols-5    /* large laptops */
+            xl:grid-cols-7    /* big desktops */
+            gap-4 sm:gap-6
+            place-items-center /* center tiles in cells */
+          "
+        >
           {games.map((game, index) => (
             <GameTile key={index} {...game} index={index} />
           ))}

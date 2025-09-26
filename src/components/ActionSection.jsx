@@ -3,7 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+import axios from "axios";
 
 const ActionCard = ({
   title,
@@ -29,7 +30,7 @@ const ActionCard = ({
     >
       <div className="flex items-start justify-between mb-4">
         <div>
-          <Badge variant="secondary" className={`${color} text-white mb-2`}>
+          <Badge variant="secondary" className={`bg-sports-purple text-white mb-2`}>
             {sport}
           </Badge>
           <h3 className="font-bold text-lg text-gray-900">{title}</h3>
@@ -41,10 +42,23 @@ const ActionCard = ({
       </div>
 
       <div className="space-y-2 mb-6">
-        <div className="flex items-center text-gray-600">
+        {/* <div className="flex items-center text-gray-600">
           <MapPin className="w-4 h-4 mr-2 text-gray-400" />
           <span className="text-sm">{location}</span>
+        </div> */}
+        <div className="flex items-center text-gray-600">
+          <MapPin className="w-4 h-4 mr-2 text-gray-400" />
+          <div className="flex-1 min-w-0">     {/* <-- key container */}
+            <span
+              className="block w-full truncate text-sm"
+              title={location}                 // full text on hover
+            >
+              {location}
+            </span>
+          </div>
         </div>
+
+
         <div className="flex items-center text-gray-600">
           <Clock className="w-4 h-4 mr-2 text-gray-400" />
           <span className="text-sm">{time}</span>
@@ -68,35 +82,43 @@ const ActionCard = ({
 };
 
 const ActionSection = () => {
-  const activities = [
-    {
-      title: "Morning Match",
-      sport: "Cricket",
-      location: "JP Nagar",
-      time: "Today",
-      participants: "6 people going",
-      price: 200,
-      color: "bg-sports-blue",
-    },
-    {
-      title: "Football Match",
-      sport: "Football",
-      location: "Indiranagar",
-      time: "Tomorrow",
-      participants: "8 people going",
-      price: 150,
-      color: "bg-sports-green",
-    },
-    {
-      title: "Power Practice",
-      sport: "Badminton",
-      location: "Koramangala",
-      time: "Sunday",
-      participants: "4 people going",
-      price: 300,
-      color: "bg-sports-purple",
-    },
-  ];
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.put(
+          "https://playdatesport.com/api/Tournament/tournaments/",
+          { status: "Pending" },
+          { headers: { "Content-Type": "application/json" } }
+        );
+
+        const normalizedActivities = (response.data.data || []).map((v) => ({
+          title: v.name,
+          sport: v.game,
+          location: v.ground?.[0]?.address,
+          time: v.start_date
+          ? new Date(v.start_date).toLocaleDateString("en-IN", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })
+          : "Upcoming",
+        participants: v.ground?.[0]?.capacity
+          ? `${v.ground[0].capacity} people allowed`
+          : "Capacity not available",
+        price: Number(v.price) || 0,
+        color: "bg-orange-500",
+        }));
+
+        setActivities(normalizedActivities);
+      } catch (err) {
+        console.error("Error fetching tournaments:", err);
+      }
+    };
+
+    fetchData();
+  }, []); // runs only once on mount
 
   return (
     <section className="py-20 bg-gray-50">
