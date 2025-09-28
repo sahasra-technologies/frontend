@@ -6,6 +6,7 @@ import { useState } from 'react';
 const Footer = () => {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
+  const [showCookies , setShowCookies] = useState(false);
 
   const footerSections = [
     {
@@ -43,7 +44,7 @@ const Footer = () => {
       links: [
         { name: "Privacy Policy", action: () => setShowPrivacy(true) },
         { name: "Terms and Conditions", action: () => setShowTerms(true) },
-        { name: "Cookie Policy", path: "/cookes" },
+        { name: "Cookie Policy", action: () => setShowCookies(true) },
         // { name: "Press", path: "/press" },
         // { name: "Partnerships", path: "/partnerships" },
       ],
@@ -206,10 +207,13 @@ const Footer = () => {
           <h2>12. Governing Law & Dispute Resolution</h2>
           <p>These terms are governed by Indian law and the jurisdiction of Hyderabad, Telangana. Please contact support before raising legal disputes.</p>
 
-          <h2>13. Contact & Support</h2>
-          <p>Email: <a href="mailto:contact@playdate.com">contact@playdate.com</a><br/>
-          Address: Uppal,Hyderabad.</p>
-            <button onClick={() => setShowTerms(false)} className="close-modal-btn">Close</button>
+          <br />
+          <p>
+            <strong>PlayDate Sport</strong><br />
+            Address: Uppal,Hyderabad.<br />
+            Email: <a href="mailto:contact@playdate.com">contact@playdate.com</a>
+          </p>
+          <button onClick={() => setShowTerms(false)} className="close-modal-btn">Close</button>
           </div>
         </div>
       )}
@@ -253,6 +257,9 @@ const Footer = () => {
             <p>Policy may change. We notify you via app/email. Continued use implies acceptance.</p>
 
             <h2>11. Grievance and Contact</h2>
+            <p>Please contact support before raising legal disputes.</p>
+            
+            <br />
             <p>
               <strong>PlayDate Sport</strong><br />
               Address: Uppal,Hyderabad.<br />
@@ -263,6 +270,69 @@ const Footer = () => {
           </div>
         </div>
       )}
+
+      {/* Cookie Modal */}
+      {showCookies && (
+        <div className="terms-modal">
+          <div className="terms-content">
+            <span className="close-icon" onClick={() => setShowCookies (false)}>×</span>
+            <h1>Cookie Policy - PlayDate Sports Pvt. Ltd.</h1>
+            <div className="meta">Effective Date: 01/06/2025</div>
+
+            <h2 className="font-semibold mt-4">1. What Are Cookies?</h2>
+            <p>
+              Cookies are small text files stored on your device that help us recognize you, improve
+              your browsing experience, and ensure smooth functioning of our platform.
+            </p>
+
+            <h2 className="font-semibold mt-4">2. Types of Cookies We Use</h2>
+            <p>
+                <strong>Essential Cookies:</strong> Required for core features like authentication, navigation, and secure payments. <br />
+                <strong>Performance Cookies:</strong> Help us measure app usage, load times, and detect errors. <br />
+                <strong>Functional Cookies:</strong> Remember preferences like language, region, and saved settings. <br />
+                {/* <strong>Analytics & Tracking Cookies:</strong> Used via Firebase/Google Analytics to analyze trends and improve user experience. <br /> */}
+                <strong>Advertising Cookies:</strong> May be used for personalized offers, promotions, or retargeting. <br />
+            </p>
+            
+            <h2 className="font-semibold mt-4">3. How We Use Cookies</h2>
+            <p>
+              Cookies allow us to: <br />
+                &nbsp;&nbsp;&nbsp;Keep you signed in securely.<br />
+                &nbsp;&nbsp;&nbsp;Show relevant sports events and tournaments.<br />
+                &nbsp;&nbsp;&nbsp;Track performance and improve our app experience.<br />
+                &nbsp;&nbsp;&nbsp;Provide secure payment and fraud prevention via Razorpay.<br />
+            </p>
+
+            <h2 className="font-semibold mt-4">4. Managing Cookies</h2>
+            <p>
+              You can manage or disable cookies anytime through your browser or device settings.
+              However, disabling cookies may limit some features of PlayDate.
+            </p>
+
+            <h2 className="font-semibold mt-4">5. Third-Party Cookies</h2>
+            <p>
+              We may use trusted third-party tools (Firebase, Razorpay, Google Analytics) which set
+              their own cookies for analytics, payments, and security purposes.
+            </p>
+
+            <h2 className="font-semibold mt-4">6. Policy Updates</h2>
+            <p>
+              We may update this Cookie Policy periodically. You’ll be notified via app or email.
+              Continued use of PlayDate implies acceptance of these updates.
+            </p>
+            
+            <br />
+            <p>
+              <strong>PlayDate Sport</strong><br />
+              Address: Uppal,Hyderabad.<br />
+              Email: <a href="mailto:contact@playdate.com">contact@playdate.com</a>
+            </p>
+
+            <button onClick={() => setShowCookies(false)} className="close-modal-btn">Close</button>
+          </div>
+        </div>
+      )}
+      
     </footer>
   );
 };
