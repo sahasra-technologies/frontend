@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ActionCard = ({
+  id,
   title,
   sport,
   location,
@@ -18,7 +20,7 @@ const ActionCard = ({
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-
+  const navigate = useNavigate();
   return (
     <motion.div
       ref={ref}
@@ -70,10 +72,12 @@ const ActionCard = ({
       </div>
 
       <div className="flex gap-2">
-        <Button size="sm" variant="outline" className="flex-1">
+        <Button size="sm" variant="outline" 
+        className="flex-1" onClick={() => navigate(`/tournaments/${id}`)}>
           Check Info
         </Button>
-        <Button size="sm" className={`flex-1 ${color} hover:opacity-90`}>
+        <Button size="sm" 
+        className={`flex-1 ${color} hover:opacity-90`} onClick={() => navigate(`/tournaments/${id}`)}>
           Join Now
         </Button>
       </div>
@@ -94,6 +98,7 @@ const ActionSection = () => {
         );
 
         const normalizedActivities = (response.data.data || []).map((v) => ({
+          id: v.id,
           title: v.name,
           sport: v.game,
           location: v.ground?.[0]?.address,
