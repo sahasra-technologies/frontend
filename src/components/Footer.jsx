@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Facebook, Twitter, Instagram, MessageCircle } from "lucide-react";
+import { Facebook, Twitter, Instagram, MessageCircle, Linkedin } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 import { Link } from "react-router-dom"; // ✅ for navigation
 import { useState } from 'react';
 
@@ -7,6 +8,14 @@ const Footer = () => {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
   const [showCookies , setShowCookies] = useState(false);
+
+  const socialLinks = [
+  // { icon: Facebook, href: "https://www.facebook.com/login.php" },
+  // { icon: Twitter, href: "https://x.com/login" },
+  { icon: Instagram, href: "https://www.instagram.com/playdatesport/?utm_source=qr" },
+  // { icon: MessageCircle, href: "https://messages.google.com/web/welcome" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/playdatesport/"}
+  ];
 
   const footerSections = [
     {
@@ -72,11 +81,25 @@ const Footer = () => {
               <p className="text-gray-400 mb-6 max-w-sm">
                 Connecting sports enthusiasts, one game at a time.
               </p>
-              <div className="flex space-x-4">
+              {/* <div className="flex space-x-4">
                 {[Facebook, Twitter, Instagram, MessageCircle].map((Icon, i) => (
                   <a
                     key={i}
                     href="#"
+                    className="text-gray-400 hover:text-sports-blue transition-colors"
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                ))}
+              </div> */}
+
+              <div className="flex space-x-4">
+                {socialLinks.map(({ icon: Icon, href }, index) => (
+                  <a
+                    key={index}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-400 hover:text-sports-blue transition-colors"
                   >
                     <Icon className="w-5 h-5" />
