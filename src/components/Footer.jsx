@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Facebook, Twitter, Instagram, MessageCircle, Linkedin } from "lucide-react";
+import { Facebook, Twitter, Instagram, MessageCircle, Linkedin, Phone } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import { Link } from "react-router-dom"; // ✅ for navigation
 import { useState } from 'react';
@@ -14,7 +14,9 @@ const Footer = () => {
   // { icon: Twitter, href: "https://x.com/login" },
   { icon: Instagram, href: "https://www.instagram.com/playdatesport/?utm_source=qr" },
   // { icon: MessageCircle, href: "https://messages.google.com/web/welcome" },
-  { icon: Linkedin, href: "https://www.linkedin.com/company/playdatesport/"}
+  { icon: Linkedin, href: "https://www.linkedin.com/company/playdatesport/"},
+  { icon: Phone, href: "tel: 9618387894"}
+
   ];
 
   const footerSections = [
