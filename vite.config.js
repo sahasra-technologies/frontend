@@ -7,10 +7,10 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 443,
-    https: {
-      key: fs.readFileSync("/etc/ssl/private/localhost.key"),
-      cert: fs.readFileSync("/etc/ssl/certs/localhost.crt"),
-    },
+    // https: {
+    //   key: fs.readFileSync("/etc/ssl/private/localhost.key"),
+    //   cert: fs.readFileSync("/etc/ssl/certs/localhost.crt"),
+    // },
   },
   plugins: [react()],
   resolve: {
