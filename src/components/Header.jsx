@@ -118,6 +118,7 @@ const Header = () => {
     // { label: "Services", href: "#", color: "text-sports-green" },
     // { label: "Coaching", href: "#", color: "text-sports-orange" },
     // { label: "Community", href: "#", color: "text-sports-purple" },
+    { label: "Home", href: "/", color: "text-sports-green" },
     { label: "About us", href: "/about-us", color: "text-sports-purple" },
     { label: "Tournaments", href: "/tournaments", color: "text-sports-blue" },
     { label: "Linkedin", href: "https://www.linkedin.com/company/playdatesport", color: "text-sports-orange" },
