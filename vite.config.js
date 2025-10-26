@@ -1,16 +1,12 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import fs from "fs";
 import path from "path";
 
-export default defineConfig(({ mode }) => ({
+// https://vitejs.dev/config/
+export default defineConfig(() => ({
   server: {
-    host: "::",
-    port: 443,
-    // https: {
-    //   key: fs.readFileSync("/etc/ssl/private/localhost.key"),
-    //   cert: fs.readFileSync("/etc/ssl/certs/localhost.crt"),
-    // },
+    host: "::",   // allow external connections
+    port: 80,     // change to 3000 if you prefer
   },
   plugins: [react()],
   resolve: {
