@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import PickleballImg  from '../assets/images/Pickleball.png'
+import PickleballImg  from '../assets/images/pickleball.png'
 
 const GameTile = ({ name, icon, color, index }) => {
   const ref = useRef(null);
