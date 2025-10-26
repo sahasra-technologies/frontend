@@ -3,10 +3,10 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 // https://vitejs.dev/config/
-export default defineConfig(() => ({
+export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",   // allow external connections
-    port: 80,     // change to 3000 if you prefer
+    host: "::",
+    port: 3000,
   },
   plugins: [react()],
   resolve: {
