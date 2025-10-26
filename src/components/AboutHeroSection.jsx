@@ -74,7 +74,7 @@ const AboutHeroSection = () => {
         <p className="text-base sm:text-lg text-gray-700 mb-8 leading-relaxed">
           We're building a sports culture where every match matters, every player has a stage, and every weekend feels like game day. Join thousands of athletes finding their tribe and unleashing their potential on courts and fields across the nation.
         </p>
-        <div className="grid grid-cols-3 gap-6 justify-items-center">
+        {/* <div className="grid grid-cols-3 gap-6 justify-items-center">
           <div>
             <div className="text-2xl sm:text-3xl font-bold text-blue-600">10,000+</div>
             <div className="text-sm text-gray-500">Matches</div>
@@ -87,7 +87,7 @@ const AboutHeroSection = () => {
             <div className="text-2xl sm:text-3xl font-bold text-blue-600">50+</div>
             <div className="text-sm text-gray-500">Communities</div>
           </div>
-        </div>
+        </div> */}
       </div>
     </motion.section>
   );
