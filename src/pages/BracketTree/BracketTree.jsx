@@ -18,7 +18,17 @@ export function BracketTree({ rounds }) {
   const [selectedMatch, setSelectedMatch] = useState(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 sm:py-12 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 sm:py-12 md:pt-20 lg:pt-24 px-4 sm:px-6">
+      <div className="flex items-center gap-2 mb-6 md:hidden">
+        <img
+          src="/Play_primary.svg"
+          alt="Logo"
+          className="w-8 h-8"
+        />
+        <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-sports-blue bg-clip-text text-transparent">
+          PlayDate
+        </span>
+      </div>
       <div className="mb-8 sm:mb-12">
         <div className="text-center">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-2">
