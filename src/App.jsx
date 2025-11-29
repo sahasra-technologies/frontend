@@ -24,6 +24,8 @@ import MatchSchedule from "./pages/MatchSchedule.jsx";
 import MatchPage from "./pages/Match/MatchPage.jsx";
 import TournamentPage from "./pages/Tournaments/TournamentsPage.jsx";
 import Header from "@/components/Header";
+// import Footer from "./components/Footer.jsx";
+import BracketTreeIndex from "./pages/BracketTree/BracketTreeIndex.jsx";
 
 import NotFound from "./pages/NotFound.jsx";
 import CustomSpinner from './components/Spinner/CustomSpinner';
@@ -98,6 +100,7 @@ const App = () => {
                 />
                 <Route path="/match-schedule" element={<MatchSchedule setIsLoading={setIsLoading} />} />
                 <Route path='/match-page' element={<MatchPage setIsLoading={setIsLoading} />} />
+                <Route path='/BracketTree' element={<LayoutWrapper><BracketTreeIndex setIsLoading={setIsLoading} /></LayoutWrapper>} />
 
                 {/* Not Found */}
                 <Route path="*" element={<NotFound />} />
