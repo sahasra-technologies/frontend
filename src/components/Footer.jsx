@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Facebook, Twitter, Instagram, MessageCircle, Linkedin, Phone } from "lucide-react";
+import { Facebook, Twitter, Instagram, MessageCircle, Linkedin, Phone, Mail } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import { Link } from "react-router-dom"; // ✅ for navigation
 import { useState } from 'react';
@@ -15,7 +15,8 @@ const Footer = () => {
   { icon: Instagram, href: "https://www.instagram.com/playdatesport/?utm_source=qr" },
   // { icon: MessageCircle, href: "https://messages.google.com/web/welcome" },
   { icon: Linkedin, href: "https://www.linkedin.com/company/playdatesport/"},
-  { icon: Phone, href: "tel: 9618387894"}
+  { icon: Phone, href: "tel: 9618387894"},
+  // { icon: Mail, href:"mailto:shamath1213@gmail.com"}
 
   ];
 
@@ -63,7 +64,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 text-white pb-32 sm:pb-28 md:pb-20 lg:pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main footer content */}
         <div className="py-16">
@@ -94,6 +95,9 @@ const Footer = () => {
                   </a>
                 ))}
               </div> */}
+              <div className="flex space-x-4 text-gray-400 hover:text-sports-blue transition-colors">
+                Mail: &nbsp; <u>contact@playdatesport.com</u>
+              </div>
 
               <div className="flex space-x-4">
                 {socialLinks.map(({ icon: Icon, href }, index) => (

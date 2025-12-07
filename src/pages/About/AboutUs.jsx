@@ -173,7 +173,7 @@ const AboutUs = () => {
             </div>
         
         
-        <Footer />
+        {/* <Footer /> */}
     </div>
   );
 };

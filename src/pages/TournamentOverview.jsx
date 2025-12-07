@@ -18,159 +18,40 @@ import {
   Zap,
   CheckCircle,
 } from "lucide-react";
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
-const tournaments = {
-  "TUR0000006": {
-    id: 1,
-    name: "Cricket Grand Championship 2025",
-    date: "29th November 2025",
-    time: "8:00 AM Onwards",
-    location: "Mumbai Cricket Association Ground",
-    venue: "Wankhede Stadium, Mumbai",
-    latitude: 19.0176,
-    longitude: 72.8194,
-    price: 5000,
-    priceLabel: "₹5,000",
-    image:
-      "https://images.unsplash.com/photo-1531415074968-36a91cea50eb?w=1200&h=600&fit=crop",
-    description:
-      "Get ready for the Cricket Grand Championship 2025, a thrilling competition bringing together passionate cricketers from across the region. Featuring multiple categories for different skill levels, this event promises high-energy matches, intense competition, and an exciting display of talent. Whether you're playing to win or cheering from the sidelines, experience the spirit of sportsmanship and the joy of cricket at its finest!",
-    categories: [
-      "Men's Singles",
-      "Women's Singles",
-      "Men's Doubles",
-      "Women's Doubles",
-      "Mixed Doubles",
-    ],
-    overview:
-      "Experience an unforgettable cricket tournament with world-class facilities and professional organization.",
-    rules: [
-      "Teams must have a minimum of 15 players and a maximum of 20 players",
-      "Players must be registered at least 7 days before the match",
-      "Match duration: 50 overs per side as per standard ODI rules",
-      "Toss will be done 30 minutes before the scheduled match time",
-      "Rain rule: Duckworth-Lewis method will be applied",
-      "All players must wear official tournament kit",
-      "No aggressive behavior or unsporting conduct allowed",
-    ],
-    registrationOptions: [
-      { name: "Men's Singles", price: 5000 },
-      { name: "Women's Singles", price: 5000 },
-      { name: "Men's Doubles", price: 8000 },
-      { name: "Women's Doubles", price: 8000 },
-      { name: "Mixed Doubles", price: 7000 },
-    ],
-    rating: 4.8,
-    reviewCount: 347,
-    participantCount: 2500,
-    registeredCount: 1840,
-    capacity: 2500,
-    hoursLeft: 48,
-    verified: true,
-    testimonials: [
-      {
-        name: "Rajesh Kumar",
-        role: "Professional Cricketer",
-        text: "Outstanding tournament! The organization was impeccable and the competition level was world-class.",
-        rating: 5,
-      },
-      {
-        name: "Priya Sharma",
-        role: "Team Captain",
-        text: "Best cricket tournament I've participated in. Highly recommended for all skill levels!",
-        rating: 5,
-      },
-      {
-        name: "Amit Patel",
-        role: "Cricket Enthusiast",
-        text: "Amazing experience with great facilities and supportive crowd. Can't wait for the next one!",
-        rating: 4,
-      },
-    ],
-  },
-  "TUR0000005": {
-    id: 2,
-    name: "Football World Cup Series 2025",
-    date: "1st December 2025",
-    time: "9:00 AM Onwards",
-    location: "Delhi Sports Complex",
-    venue: "Arun Jaitley Stadium, Delhi",
-    latitude: 28.5921,
-    longitude: 77.2508,
-    price: 7500,
-    priceLabel: "₹7,500",
-    image:
-      "https://images.unsplash.com/photo-1579952363873-27f3bade9e55?w=1200&h=600&fit=crop",
-    description:
-      "Join the Football World Cup Series 2025, an international-level football tournament featuring top teams from across the country. Experience professional-grade facilities and world-class organization.",
-    categories: ["Men's Team", "Women's Team", "Youth Category"],
-    overview:
-      "Compete at the highest level with teams from across the region in this prestigious football tournament.",
-    rules: [
-      "Squads of 18 players maximum per match",
-      "Player registration deadline 5 days before tournament start",
-      "Match duration: 90 minutes as per FIFA rules",
-      "Substitutions allowed up to 3 per side",
-      "Yellow and red card system applies",
-    ],
-    registrationOptions: [
-      { name: "Men's Team", price: 15000 },
-      { name: "Women's Team", price: 12000 },
-      { name: "Youth Category", price: 7500 },
-    ],
-    rating: 4.7,
-    reviewCount: 289,
-    participantCount: 1800,
-    registeredCount: 1450,
-    capacity: 1800,
-    hoursLeft: 72,
-    verified: true,
-    testimonials: [
-      {
-        name: "Akshay Singh",
-        role: "Football Coach",
-        text: "Professional management and excellent ground conditions. Perfect for competitive football!",
-        rating: 5,
-      },
-      {
-        name: "Neha Gupta",
-        role: "Player",
-        text: "Great tournament with fair refereeing and supportive staff throughout.",
-        rating: 4,
-      },
-      {
-        name: "Vikram Reddy",
-        role: "Team Manager",
-        text: "Exceptional experience. The logistics were seamless and the atmosphere was electric!",
-        rating: 5,
-      },
-    ],
-  },
-};
-
-export default function TournamentOverview({ setIsLoading }) {
+// export default function TournamentOverview({ setIsLoading }) {
+const TournamentOverview = ({ setIsLoading }) =>{
   const { id } = useParams();
-  const otournament = tournaments[id || "1"];
+  // const otournament = tournaments[id || "1"];
   const [tournament, setTournment] = useState({})
-  // const [rules, setRules] = useState([])
+  const [rules, setRules] = useState([])
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [paymentStep, setPaymentStep] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState(
-    otournament?.registrationOptions[0]?.name || ""
-  );
+  // const [selectedCategory, setSelectedCategory] = useState(
+  //   otournament?.registrationOptions[0]?.name || ""
+  // );
   const [liked, setLiked] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("card");
+  const [price, setPrice] = useState(0)
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: Cookies.get('first_name') || "",
+    email: Cookies.get('email') || '',
     phone: "",
-    cardNumber: "",
-    expiry: "",
-    cvv: "",
+    // price: "",
+    tournamentId: id,
+    currency: "INR",
+    // cardNumber: "",
+    // expiry: "",
+    // cvv: "",
+    user: Cookies.get('userId') || "",
   });
+  const [amenities, setAmeities] = useState([])
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const access = Cookies.get("access");
   
   useEffect(() => {
     const fetchData = async () => {
@@ -186,6 +67,9 @@ export default function TournamentOverview({ setIsLoading }) {
         const data = await response.json();
         console.log("data", data)
         setTournment(data)
+        setPrice(data?.price)
+        setRules(data.rules)
+        setAmeities(data?.ground?.[0]?.amenities)
         // const allRules = data
         //   .flatMap(tournament => tournament.rules || [])
         //   .filter(rule => rule);
@@ -200,9 +84,9 @@ export default function TournamentOverview({ setIsLoading }) {
     };
   
     fetchData();
-  }, [setIsLoading]);
+  }, [id]);
 
-  if (!otournament) {
+  if (!tournament) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -423,42 +307,110 @@ export default function TournamentOverview({ setIsLoading }) {
     validateField(name, value);
   };
 
-  const handlePaymentSubmit = () => {
-    if (paymentStep === 1) {
-      if (validateStep1()) {
-        setPaymentStep(2);
-        setTouched({});
-      }
-    } else {
-      if (validateStep2()) {
-        setRegistrationSuccess(true);
+  const isMobileDevice = () => {
+    if (navigator.userAgentData) {
+      return navigator.userAgentData.mobile;
+    }
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+
+
+  const handlePaymentSubmit = async () => {
+    // setRegistrationSuccess(true);
         setTimeout(() => {
           setIsPaymentModalOpen(false);
           setPaymentStep(1);
           setRegistrationSuccess(false);
-          setFormData({
-            name: "",
-            email: "",
+          const updatedForm = {
+            name: Cookies.get('first_name') || "",
+            email: Cookies.get('email') || '',
             phone: "",
-            cardNumber: "",
-            expiry: "",
-            cvv: "",
-          });
+            // price: tournament.price,
+            tournamentId: id,
+            currency: "INR",
+            user: Cookies.get('userId')
+          };
+          setFormData(updatedForm);
           setErrors({});
           setTouched({});
           setPaymentMethod("card");
         }, 2000);
+      // console.log("formData", formData, validateStep1(), id)
+
+      setIsLoading?.(true);
+  
+      try {
+        const orderResponse = await fetch("http://localhost:8000/payments/orders/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFTOKEN": access,
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        const data = await orderResponse.json();
+        setIsLoading?.(false);
+  
+        if (orderResponse.ok) {
+          console.log("isMobileDevice", isMobileDevice)
+          if (isMobileDevice()) {
+            console.log("isMobileDevice =", true);
+            window.location.href = data.upi_link;
+          } else {
+            toast.info("UPI payment requires a mobile device with a UPI app installed.");
+            console.log("UPI Link:", data.upi_link);
+          }
+        }
+  
+        console.error("Order creation failed:", data, orderResponse);
+        toast.error(data?.error || "Unable to create order.");
+      } catch (error) {
+        console.error("Error creating order:", error);
+        toast.error("Unable to create order.");
+        setIsLoading?.(false);
       }
+        
+    if (!validateStep1()) {
+      // setRegistrationSuccess(false);rtd
+      setTouched({});
     }
+    // if (paymentStep === 1) {
+    //   if (validateStep1()) {
+    //     setPaymentStep(2);
+    //     setTouched({});
+    //   }
+    // } else {
+    //   if (validateStep2()) {
+    //     setRegistrationSuccess(true);
+    //     setTimeout(() => {
+    //       setIsPaymentModalOpen(false);
+    //       setPaymentStep(1);
+    //       setRegistrationSuccess(false);
+    //       setFormData({
+    //         name: "",
+    //         email: "",
+    //         phone: "",
+    //         cardNumber: "",
+    //         expiry: "",
+    //         cvv: "",
+    //       });
+    //       setErrors({});
+    //       setTouched({});
+    //       setPaymentMethod("card");
+    //     }, 2000);
+    //   }
+    // }
   };
 
-  const selectedOption = otournament.registrationOptions.find(
-    (opt) => opt.name === selectedCategory
-  );
-  const registrationPrice = selectedOption?.price || otournament.price;
-  const spotsLeft = otournament.capacity - otournament.registeredCount;
+  // const selectedOption = otournament.registrationOptions.find(
+  //   (opt) => opt.name === selectedCategory
+  // );
+  // const registrationPrice = selectedOption?.price || otournament.price;
+  const spotsLeft = tournament.capacity - tournament.registered_count;
   const percentageFilled =
-    (otournament.registeredCount / otournament.capacity) * 100;
+    (tournament.registered_count / tournament.capacity) * 100;
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white md:pb-0 pb-24">
@@ -498,7 +450,7 @@ export default function TournamentOverview({ setIsLoading }) {
       </header> */}
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20">
         <div className="flex items-center gap-2 mb-6 md:hidden">
           <img
             src="/Play_primary.svg"
@@ -516,14 +468,14 @@ export default function TournamentOverview({ setIsLoading }) {
             <div className="animate-fade-in">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <p className="text-sm font-medium text-blue-600 mb-2 flex items-center gap-1">
+                  {/* <p className="text-sm font-medium text-blue-600 mb-2 flex items-center gap-1">
                     {otournament.verified && (
                       <>
                         <Shield className="w-4 h-4" />
                         Verified Tournament
                       </>
                     )}
-                  </p>
+                  </p> */}
                   <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
                     {tournament.name}
                   </h1>
@@ -531,7 +483,7 @@ export default function TournamentOverview({ setIsLoading }) {
               </div>
 
               {/* Rating Badge */}
-              <div className="flex items-center gap-4 mb-6">
+              {/* <div className="flex items-center gap-4 mb-6">
                 <div className="flex items-center gap-2 bg-yellow-50 px-4 py-2 rounded-lg border border-yellow-200">
                   <Star className="w-5 h-5 text-yellow-500 fill-current" />
                   <span className="font-bold text-gray-900">
@@ -545,7 +497,7 @@ export default function TournamentOverview({ setIsLoading }) {
                   <Users className="w-4 h-4 text-blue-600" />
                   <span>{otournament.participantCount.toLocaleString()} participants</span>
                 </div>
-              </div>
+              </div> */}
 
               {/* Hero Image with Overlay */}
               <div className="relative rounded-xl overflow-hidden shadow-xl group">
@@ -554,10 +506,33 @@ export default function TournamentOverview({ setIsLoading }) {
                   alt={tournament.name}
                   className="w-full h-80 md:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
+                {/* <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg font-semibold text-blue-600 flex items-center gap-2 shadow-lg">
+                  <Zap className="w-5 h-5" />
+                  {tournament.hoursLeft}h left!
+                  48h left!
+                </div> */}
+
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg font-semibold text-blue-600 flex items-center gap-2 shadow-lg">
                   <Zap className="w-5 h-5" />
-                  {otournament.hoursLeft}h left!
+
+                  {(() => {
+                    const target = new Date(tournament.start_date);
+                    const today = new Date();
+
+                    // Reset time so day comparison is exact
+                    target.setHours(0, 0, 0, 0);
+                    today.setHours(0, 0, 0, 0);
+
+                    const diffMs = target - today;
+                    const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+                    if (days < 0) return "Completed";
+                    if (days === 0) return "Today";
+
+                    return `${days} days left`;
+                  })()}
                 </div>
+
               </div>
             </div>
 
@@ -574,7 +549,7 @@ export default function TournamentOverview({ setIsLoading }) {
             {/* Quick Stats */}
             <div className="grid grid-cols-3 gap-4">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
-                <p className="text-sm text-gray-600 mb-1">Registration Status</p>
+                <p className="text-sm text-gray-600 mb-1 max-[320px]:text-[10px]">Registration Status</p>
                 <p className="text-2xl font-bold text-blue-600">
                   {percentageFilled.toFixed(0)}%
                 </p>
@@ -589,16 +564,25 @@ export default function TournamentOverview({ setIsLoading }) {
                 </p>
               </div>
               <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
-                <p className="text-sm text-gray-600 mb-1">Registered</p>
+                <p className="text-sm text-gray-600 mb-1 max-[320px]:text-[10px]">Registered</p>
                 <p className="text-2xl font-bold text-green-600">
-                  {otournament.registeredCount}
+                  {tournament.registered_count}
                 </p>
-                <p className="text-xs text-gray-600 mt-3">of {otournament.capacity}</p>
+                <p className="text-xs text-gray-600 mt-3">of {tournament.capacity}</p>
               </div>
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
-                <p className="text-sm text-gray-600 mb-1">Prize Pool</p>
-                <p className="text-2xl font-bold text-purple-600">
-                  ₹50L+
+                <p className="text-sm text-gray-600 mb-1 max-[320px]:text-[10px]">Prize Pool</p>
+                <p
+                  className={
+                    `text-2xl font-bold text-purple-600 ` +
+                    (tournament.price_pool === 0 || !tournament.price_pool
+                      ? "max-[400px]:text-[15px]"
+                      : "")
+                  }
+                >
+                  {tournament.price_pool === 0 || !tournament.price_pool
+                    ? "Not yet decided"
+                    : `${tournament.price_pool} INR`}
                 </p>
                 <p className="text-xs text-gray-600 mt-3">Total</p>
               </div>
@@ -608,45 +592,45 @@ export default function TournamentOverview({ setIsLoading }) {
             <div className="bg-white rounded-xl p-6 md:p-8 border border-gray-200 shadow-sm">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-blue-600" />
-                Date & Time
+                Date
               </h3>
               <div className="space-y-3">
                 <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg border border-blue-200">
-                  <p className="text-sm text-gray-600">otournament Date</p>
+                  <p className="text-sm text-gray-600">Tournament Date</p>
                   <p className="text-lg font-bold text-gray-900 mt-1">
                     {tournament.start_date}
                   </p>
                 </div>
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg border border-blue-200">
+                {/* <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg border border-blue-200">
                   <p className="text-sm text-gray-600">Start Time</p>
                   <p className="text-lg font-bold text-gray-900 mt-1">
                     {otournament.time}
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
 
-            {/* Categories Section */}
+            {/* Amenities Section */}
             <div className="bg-white rounded-xl p-6 md:p-8 border border-gray-200 shadow-sm">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-blue-600" />
-                Categories
+                Amenities
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {otournament.categories.map((category, idx) => (
+                {amenities.map((amenity, idx) => (
                   <div
                     key={idx}
                     className="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition"
                   >
                     <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                    <span className="text-gray-900 font-medium">{category}</span>
+                    <span className="text-gray-900 font-medium">{amenity}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Location Section */}
-            <div className="bg-white rounded-xl p-6 md:p-8 border border-gray-200 shadow-sm">
+            {/* <div className="bg-white rounded-xl p-6 md:p-8 border border-gray-200 shadow-sm">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-blue-600" />
                 Location
@@ -655,7 +639,7 @@ export default function TournamentOverview({ setIsLoading }) {
                 {otournament.location}
               </p>
 
-              {/* Map */}
+              //Map
               <div className="relative w-full h-80 rounded-lg overflow-hidden border-2 border-blue-200 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center hover:shadow-lg transition">
                 <div className="text-center">
                   <MapPinIcon className="w-16 h-16 text-blue-600 mx-auto mb-3 opacity-80" />
@@ -667,7 +651,7 @@ export default function TournamentOverview({ setIsLoading }) {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Rules Section */}
             <div className="bg-white rounded-xl p-6 md:p-8 border border-gray-200 shadow-sm">
@@ -676,22 +660,26 @@ export default function TournamentOverview({ setIsLoading }) {
                 Rules & Format
               </h3>
               <ul className="space-y-3">
-                {tournament.rules.map((rule, idx) => (
-                  <li
-                    key={idx}
-                    className="flex gap-3 text-gray-700 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-200 transition"
-                  >
-                    <span className="text-blue-600 font-bold flex-shrink-0 text-lg">
-                      ✓
-                    </span>
-                    <span>{rule}</span>
-                  </li>
-                ))}
+                {rules.length > 0 ? (
+                  rules.map((rule, idx) => (
+                    <li
+                      key={idx}
+                      className="flex gap-3 text-gray-700 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-200 transition"
+                    >
+                      <span className="text-blue-600 font-bold flex-shrink-0 text-lg">
+                        ✓
+                      </span>
+                      <span>{rule}</span>
+                    </li>
+                  ))
+                ) : (
+                  <li className='rules-list'>No rules available</li>
+                )}
               </ul>
             </div>
 
             {/* Testimonials Section */}
-            <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 md:p-8 border border-blue-200">
+            {/* <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 md:p-8 border border-blue-200">
               <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <Star className="w-5 h-5 text-yellow-500 fill-current" />
                 Participant Reviews
@@ -726,7 +714,7 @@ export default function TournamentOverview({ setIsLoading }) {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Sidebar - Registration Card */}
@@ -736,39 +724,39 @@ export default function TournamentOverview({ setIsLoading }) {
               <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl p-6 md:p-8 text-white shadow-xl">
                 {/* Price */}
                 <div className="mb-6">
-                  <p className="text-blue-100 text-sm mb-2">Starting Price</p>
-                  <p className="text-5xl font-bold mb-1">{otournament.priceLabel}</p>
-                  <p className="text-blue-100 text-xs">(per person)</p>
+                  <p className="text-blue-100 text-sm mb-2">Price</p>
+                  <p className="text-5xl font-bold mb-1">{tournament.price}</p>
+                  {/* <p className="text-blue-100 text-xs">(per person)</p> */}
                 </div>
 
                 {/* Urgency Badge */}
-                <div className="bg-red-500/20 border border-red-300/50 rounded-lg p-3 mb-6 flex items-center gap-2">
+                {/* <div className="bg-red-500/20 border border-red-300/50 rounded-lg p-3 mb-6 flex items-center gap-2">
                   <Zap className="w-4 h-4 flex-shrink-0" />
                   <span className="text-sm font-medium">
                     Only {spotsLeft} spots remaining!
                   </span>
-                </div>
+                </div> */}
 
                 {/* Register Button with Animation */}
                 <Button
                   onClick={() => setIsPaymentModalOpen(true)}
-                  className="w-full bg-white text-blue-600 hover:bg-blue-50 text-lg py-3 rounded-lg font-bold mb-4 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                  className="w-full bg-white !text-blue-600 hover:bg-blue-50 text-lg py-3 rounded-lg font-bold mb-4 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                   size="lg"
                 >
                   Register Now! 🎯
                 </Button>
 
                 {/* Trust Badges */}
-                <div className="grid grid-cols-2 gap-2 text-xs text-blue-100">
+                {/* <div className="grid grid-cols-2 gap-2 text-xs text-blue-100">
                   <div className="flex items-center gap-1">
                     <Shield className="w-4 h-4" />
-                    <span>Verified</span>
+                    <span className="!text-blue-100">Verified</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <CreditCard className="w-4 h-4" />
-                    <span>Secure Payment</span>
+                    <span className="!text-blue-100">Secure Payment</span>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/* Registration Progress */}
@@ -794,7 +782,7 @@ export default function TournamentOverview({ setIsLoading }) {
                     </div>
                   </div>
                   <div className="flex justify-between text-xs text-gray-600 pt-2 border-t border-gray-200">
-                    <span>{otournament.registeredCount} registered</span>
+                    <span>{tournament.registered_count} registered</span>
                     <span>{spotsLeft} spots left</span>
                   </div>
                 </div>
@@ -803,7 +791,7 @@ export default function TournamentOverview({ setIsLoading }) {
               {/* Info Cards */}
               <div className="space-y-3">
                 {/* Category Selector Card */}
-                <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition">
+                {/* <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition">
                   <p className="text-xs font-semibold text-gray-600 mb-3">
                     SELECT CATEGORY
                   </p>
@@ -825,26 +813,26 @@ export default function TournamentOverview({ setIsLoading }) {
                       </button>
                     ))}
                   </div>
-                </div>
+                </div> */}
 
                 {/* Date & Time Info */}
                 <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                   <p className="text-xs font-semibold text-gray-600 mb-3">
-                    DATE & TIME
+                    DATE
                   </p>
                   <p className="text-sm font-bold text-gray-900 mb-1">
-                    {otournament.date}
+                    {tournament.start_date}
                   </p>
-                  <p className="text-sm text-gray-600">{otournament.time}</p>
+                  {/* <p className="text-sm text-gray-600">{otournament.time}</p> */}
                 </div>
 
                 {/* Location Info */}
                 <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                   <p className="text-xs font-semibold text-gray-600 mb-3">
-                    LOCATION
+                    ADDRESS
                   </p>
                   <p className="text-sm font-medium text-gray-900 mb-2">
-                    {otournament.location}
+                    {tournament.address}
                   </p>
                   <button className="text-blue-600 text-xs font-bold hover:text-blue-700 transition">
                     View larger map →
@@ -856,19 +844,19 @@ export default function TournamentOverview({ setIsLoading }) {
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-semibold">Total Price:</span>
                     <span className="text-2xl font-bold text-blue-600">
-                      ₹{registrationPrice.toLocaleString()}
+                      ₹{tournament.price}
                     </span>
                   </div>
                 </div>
               </div>
 
               {/* Security Info */}
-              <div className="bg-green-50 border border-green-300 rounded-lg p-3 text-xs text-green-900">
+              {/* <div className="bg-green-50 border border-green-300 rounded-lg p-3 text-xs text-green-900">
                 <div className="flex gap-2">
                   <Shield className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <span>Your payment is 100% secure with SSL encryption</span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -880,15 +868,15 @@ export default function TournamentOverview({ setIsLoading }) {
           <div className="flex justify-center">
             <Button
               onClick={() => setIsPaymentModalOpen(true)}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg py-4 rounded-lg font-bold shadow-lg transform hover:scale-102 transition-all duration-200 mb-8 md:mb-0"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg py-4 rounded-lg font-bold shadow-lg transform hover:scale-102 transition-all duration-200 mb-12 md:mb-0"
               size="lg"
             >
               Register Now! 🎯
             </Button>
           </div>
           <div className="flex items-center justify-center gap-2 mt-3 text-xs text-gray-600">
-            <Shield className="w-3 h-3" />
-            <span>Secure Payment</span>
+            {/* <Shield className="w-3 h-3" />
+            <span>Secure Payment</span> */}
           </div>
         </div>
       </div>
@@ -901,7 +889,8 @@ export default function TournamentOverview({ setIsLoading }) {
             <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-blue-700 text-white sticky top-0 z-10">
               <div>
                 <p className="text-xs font-medium text-blue-100">
-                  Step {paymentStep} of 2
+                  simple step
+                  {/* Step {paymentStep} of 2 */}
                 </p>
                 <h2 className="text-xl font-bold">
                   {paymentStep === 1
@@ -936,7 +925,7 @@ export default function TournamentOverview({ setIsLoading }) {
                 paymentStep === 1 ? (
                   <>
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-800">
-                      <p className="font-medium">📝 Complete your registration in 2 simple steps</p>
+                      <p className="font-medium">📝 Complete your registration in simple step</p>
                     </div>
 
                     <div>
@@ -1024,7 +1013,7 @@ export default function TournamentOverview({ setIsLoading }) {
                       )}
                     </div>
 
-                    <div>
+                    {/* <div>
                       <label className="block text-sm font-semibold text-gray-900 mb-2">
                         Category <span className="text-red-500">*</span>
                       </label>
@@ -1040,14 +1029,14 @@ export default function TournamentOverview({ setIsLoading }) {
                           </option>
                         ))}
                       </select>
-                    </div>
+                    </div> */}
 
                     <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg border border-blue-300 mt-6">
                       <p className="text-xs text-gray-600 mb-1 font-medium uppercase tracking-wide">
                         Registration Fee
                       </p>
                       <p className="text-3xl font-bold text-blue-600">
-                        ₹{registrationPrice.toLocaleString()}
+                        ₹{tournament.price}
                       </p>
                       <p className="text-xs text-gray-600 mt-2">One-time payment</p>
                     </div>
@@ -1059,7 +1048,11 @@ export default function TournamentOverview({ setIsLoading }) {
                         <div>
                           <p className="text-xs text-gray-600 mb-1 font-medium">Registration for</p>
                           <p className="text-sm font-bold text-gray-900">
-                            {selectedCategory}
+                            {/* {selectedCategory} */}
+                            {formData.name} &nbsp; {formData.email}
+                          </p>
+                          <p className="text-sm font-bold text-gray-900">
+                            {formData.phone}
                           </p>
                         </div>
                         <button
@@ -1071,7 +1064,7 @@ export default function TournamentOverview({ setIsLoading }) {
                       </div>
                       <div className="border-t border-blue-200 pt-2 mt-2">
                         <p className="text-sm font-bold text-blue-600">
-                          ₹{registrationPrice.toLocaleString()}
+                          ₹{tournament.price}
                         </p>
                       </div>
                     </div>
@@ -1208,7 +1201,7 @@ export default function TournamentOverview({ setIsLoading }) {
                     Confirmation email has been sent to <br />
                     <span className="font-semibold">{formData.email}</span>
                   </p>
-                  <p className="text-xs text-gray-500">Tournament starts on {otournament.date}</p>
+                  <p className="text-xs text-gray-500">Tournament starts on {tournament.start_date}</p>
                 </div>
               )}
             </div>
@@ -1359,3 +1352,5 @@ export default function TournamentOverview({ setIsLoading }) {
     </div>
   );
 }
+
+export default TournamentOverview

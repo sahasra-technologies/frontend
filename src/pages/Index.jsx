@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import MobileHeroSection from "@/components/mobileHeroSection";
 import StatsSection from "@/components/StatsSection";
 import PlacesSection from "@/components/PlacesSection";
 import AchievementsSection from "@/components/AchievementsSection";
@@ -15,7 +16,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* <Header /> */}
-      <HeroSection />
+      <div className="hidden md:block">
+        <HeroSection />
+      </div>
+      {/* 🌟 Mobile Hero Section */}
+      <div className="md:hidden">
+        <MobileHeroSection />
+      </div>     
       {/* <StatsSection /> */}
       <Achievements />
       {/* <Carousel3d /> */}
@@ -25,7 +32,7 @@ const Index = () => {
       {/* <SportsCategories /> */}
       <InteractiveHub />
       {/* <CTASection /> */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
