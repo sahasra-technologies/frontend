@@ -30,6 +30,9 @@ import BracketTreeIndex from "./pages/BracketTree/BracketTreeIndex.jsx";
 import TournamentOverview from "./pages/TournamentOverview.jsx";
 
 import NotFound from "./pages/NotFound.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx"
+import TermsConditions from "./pages/TermsConditions.jsx";
+import CancellationRefund from "./pages/CancellationRefund.jsx";
 import CustomSpinner from './components/Spinner/CustomSpinner';
 // import Navbar from "./components/Navbar/Navbar"; // Ensure this is imported
 import { ThemeContext, ThemeProvider } from "./context/ThemeContext"; // Ensure this exists
@@ -105,6 +108,9 @@ const App = () => {
                 <Route path='/BracketTree' element={<LayoutWrapper><BracketTreeIndex setIsLoading={setIsLoading} /></LayoutWrapper>} />
 
                 <Route path="/new-tournament/:id" element={<LayoutWrapper><TournamentOverview setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                <Route path="/privacy" element={<LayoutWrapper><PrivacyPolicy setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                <Route path="/terms-conditions" element={<LayoutWrapper><TermsConditions setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                <Route path="/cancellation-refund" element={<LayoutWrapper><CancellationRefund setIsLoading={setIsLoading} /></LayoutWrapper>} />
 
                 {/* Not Found */}
                 <Route path="*" element={<NotFound />} />
