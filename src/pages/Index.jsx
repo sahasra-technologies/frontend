@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import MobileHeroSection from "@/components/mobileHeroSection";
+import MobileHeroSection from "../components/MobileHeroSection";
 import StatsSection from "@/components/StatsSection";
 import PlacesSection from "@/components/PlacesSection";
 import AchievementsSection from "@/components/AchievementsSection";
