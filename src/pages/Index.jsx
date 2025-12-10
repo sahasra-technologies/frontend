@@ -10,7 +10,7 @@ import InteractiveHub from "@/components/InteractiveHub";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import Achievements from "../components/Achievements";
-import Carousel3d from "../components/Carousel3d";
+// import Carousel3d from "../components/Carousel3d";
 
 const Index = () => {
   return (
