@@ -54,8 +54,9 @@ const Footer = () => {
     {
       title: "Policies",
       links: [
-        { name: "Privacy Policy", action: () => setShowPrivacy(true) },
-        { name: "Terms and Conditions", action: () => setShowTerms(true) },
+        { name: "Privacy Policy", path:"/privacy" },  // action: () => setShowPrivacy(true)
+        { name: "Terms and Conditions", path:"/terms-conditions" }, //action: () => setShowTerms(true)
+        { name: "Cancellation and Refund", path:"/cancellation-refund" },
         { name: "Cookie Policy", action: () => setShowCookies(true) },
         // { name: "Press", path: "/press" },
         // { name: "Partnerships", path: "/partnerships" },
