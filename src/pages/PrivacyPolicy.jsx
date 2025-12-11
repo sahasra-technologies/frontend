@@ -245,9 +245,11 @@ export default function PrivacyPolicy() {
             </p>
 
             <div className="bg-card border border-border rounded-lg p-6 text-muted-foreground">
-              <p className="font-semibold text-foreground mb-2">PlayDateSport</p>
+              <p className="font-semibold text-foreground mb-2">Name: PlayDateSport</p>
               <address className="not-italic space-y-1">
-                <p>Uppal,Hyderabad.</p>
+                <p>Mail: contact@playdatesport.com</p>
+                <p>Phone: ‪96183 87894‬</p>
+                <p>Address: Uppal,Hyderabad.</p>
               </address>
             </div>
           </section>
