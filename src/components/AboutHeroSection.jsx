@@ -3,12 +3,12 @@ import { useRef } from "react";
 import { FloatingElement, ParticleBackground } from "./AnimationWrapper";
 
 const floatingIcons = [
-  { icon: "🏀", className: "top-20 right-10 text-5xl", delay: 0, amplitude: 25, duration: 4 },
-  { icon: "⚽", className: "top-40 right-32 text-4xl", delay: 1, amplitude: 20, duration: 3.5 },
-  { icon: "🏸", className: "top-60 left-10 text-4xl", delay: 2, amplitude: 30, duration: 3 },
-  { icon: "🎾", className: "top-32 left-32 text-3xl", delay: 0.5, amplitude: 15, duration: 4.5 },
-  { icon: "🏐", className: "bottom-40 right-20 text-4xl", delay: 1.5, amplitude: 25, duration: 3.8 },
-  { icon: "🏓", className: "bottom-60 left-20 text-3xl", delay: 2.5, amplitude: 20, duration: 4.2 },
+  // { icon: "🏀", className: "top-20 right-10 text-5xl", delay: 0, amplitude: 25, duration: 4 },
+  // { icon: "⚽", className: "top-40 right-32 text-4xl", delay: 1, amplitude: 20, duration: 3.5 },
+  // { icon: "🏸", className: "top-60 left-10 text-4xl", delay: 2, amplitude: 30, duration: 3 },
+  // { icon: "🎾", className: "top-32 left-32 text-3xl", delay: 0.5, amplitude: 15, duration: 4.5 },
+  // { icon: "🏐", className: "bottom-40 right-20 text-4xl", delay: 1.5, amplitude: 25, duration: 3.8 },
+  // { icon: "🏓", className: "bottom-60 left-20 text-3xl", delay: 2.5, amplitude: 20, duration: 4.2 },
 ];
 
 const AboutHeroSection = () => {

@@ -316,92 +316,89 @@ const TournamentOverview = ({ setIsLoading }) =>{
 
 
   const handlePaymentSubmit = async () => {
-    // setRegistrationSuccess(true);
+  // ✅ Step 1: Validate first
+  if (!validateStep1()) {
+    setTouched({});
+    return;
+  }
+
+  setIsLoading?.(true);
+
+  try {
+    const orderResponse = await fetch(
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFTOKEN": access,
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    const data = await orderResponse.json();
+
+    if (!orderResponse.ok) {
+      throw new Error(data?.error || "Unable to create order");
+    }
+
+    // ✅ Step 2: PhonePe callback
+    const paymentCallback = (response) => {
+      console.log("PhonePe response:", response);
+
+      if (response === "USER_CANCEL") {
+        toast.info("Payment was cancelled by the user.");
+        setIsLoading?.(false);
+        return;
+      }
+
+      if (response === "CONCLUDED") {
+        toast.success("Payment completed successfully!");
+
+        // ✅ Reset UI AFTER success
+        setRegistrationSuccess(true);
+
         setTimeout(() => {
           setIsPaymentModalOpen(false);
           setPaymentStep(1);
           setRegistrationSuccess(false);
-          const updatedForm = {
-            name: Cookies.get('first_name') || "",
-            email: Cookies.get('email') || '',
+
+          setFormData({
+            name: Cookies.get("first_name") || "",
+            email: Cookies.get("email") || "",
             phone: "",
-            // price: tournament.price,
             tournamentId: id,
             currency: "INR",
-            user: Cookies.get('userId')
-          };
-          setFormData(updatedForm);
+            user: Cookies.get("userId"),
+            // amount: tournament.price,
+          });
+
           setErrors({});
           setTouched({});
           setPaymentMethod("card");
-        }, 2000);
-      // console.log("formData", formData, validateStep1(), id)
-
-      setIsLoading?.(true);
-  
-      try {
-        const orderResponse = await fetch("http://localhost:8000/payments/orders/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFTOKEN": access,
-          },
-          body: JSON.stringify(formData),
-        });
-  
-        const data = await orderResponse.json();
-        setIsLoading?.(false);
-  
-        if (orderResponse.ok) {
-          console.log("isMobileDevice", isMobileDevice)
-          if (isMobileDevice()) {
-            console.log("isMobileDevice =", true);
-            window.location.href = data.upi_link;
-          } else {
-            toast.info("UPI payment requires a mobile device with a UPI app installed.");
-            console.log("UPI Link:", data.upi_link);
-          }
-        }
-  
-        console.error("Order creation failed:", data, orderResponse);
-        toast.error(data?.error || "Unable to create order.");
-      } catch (error) {
-        console.error("Error creating order:", error);
-        toast.error("Unable to create order.");
-        setIsLoading?.(false);
+        }, 1500);
       }
-        
-    if (!validateStep1()) {
-      // setRegistrationSuccess(false);rtd
-      setTouched({});
+
+      setIsLoading?.(false);
+    };
+
+    // ✅ Step 3: Launch PhonePe IFRAME
+    if (window.PhonePeCheckout?.transact) {
+      window.PhonePeCheckout.transact({
+        tokenUrl: data.redirectUrl,
+        callback: paymentCallback,
+        type: "IFRAME",
+      });
+    } else {
+      throw new Error("PhonePeCheckout is not available");
     }
-    // if (paymentStep === 1) {
-    //   if (validateStep1()) {
-    //     setPaymentStep(2);
-    //     setTouched({});
-    //   }
-    // } else {
-    //   if (validateStep2()) {
-    //     setRegistrationSuccess(true);
-    //     setTimeout(() => {
-    //       setIsPaymentModalOpen(false);
-    //       setPaymentStep(1);
-    //       setRegistrationSuccess(false);
-    //       setFormData({
-    //         name: "",
-    //         email: "",
-    //         phone: "",
-    //         cardNumber: "",
-    //         expiry: "",
-    //         cvv: "",
-    //       });
-    //       setErrors({});
-    //       setTouched({});
-    //       setPaymentMethod("card");
-    //     }, 2000);
-    //   }
-    // }
-  };
+  } catch (error) {
+    console.error("Payment Error:", error);
+    toast.error(error.message || "Unable to complete payment");
+    setIsLoading?.(false);
+  }
+};
+
 
   // const selectedOption = otournament.registrationOptions.find(
   //   (opt) => opt.name === selectedCategory
@@ -738,6 +735,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
                 </div> */}
 
                 {/* Register Button with Animation */}
+                {tournament?.status?.toLowerCase() !== "completed" && (
                 <Button
                   onClick={() => setIsPaymentModalOpen(true)}
                   className="w-full bg-white !text-blue-600 hover:bg-blue-50 text-lg py-3 rounded-lg font-bold mb-4 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
@@ -745,6 +743,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
                 >
                   Register Now! 🎯
                 </Button>
+                )}
 
                 {/* Trust Badges */}
                 {/* <div className="grid grid-cols-2 gap-2 text-xs text-blue-100">
@@ -863,6 +862,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
       </main>
 
       {/* Mobile Sticky Register Button */}
+      {tournament?.status?.toLowerCase() !== "completed" && (
       <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white border-t border-gray-200 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex justify-center">
@@ -879,7 +879,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
             <span>Secure Payment</span> */}
           </div>
         </div>
-      </div>
+      </div>)}
 
       {/* Payment Modal */}
       {isPaymentModalOpen && (

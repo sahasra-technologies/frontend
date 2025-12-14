@@ -107,7 +107,7 @@ const App = () => {
                 <Route path='/match-page' element={<MatchPage setIsLoading={setIsLoading} />} />
                 <Route path='/BracketTree' element={<LayoutWrapper><BracketTreeIndex setIsLoading={setIsLoading} /></LayoutWrapper>} />
 
-                <Route path="/new-tournament/:id" element={<LayoutWrapper><TournamentOverview setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                <Route path="/new-tournaments/:id" element={<LayoutWrapper><TournamentOverview setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/privacy" element={<LayoutWrapper><PrivacyPolicy setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/terms-conditions" element={<LayoutWrapper><TermsConditions setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/cancellation-refund" element={<LayoutWrapper><CancellationRefund setIsLoading={setIsLoading} /></LayoutWrapper>} />
