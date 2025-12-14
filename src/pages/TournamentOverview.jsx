@@ -326,6 +326,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
 
   try {
     const orderResponse = await fetch(
+      "http://localhost:8001/payments/orders/",
       {
         method: "POST",
         headers: {
