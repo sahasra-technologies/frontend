@@ -326,7 +326,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
 
   try {
     const orderResponse = await fetch(
-      "http://localhost:8001/payments/orders/",
+      "https://playdatesport.com/api/payments/orders/",
       {
         method: "POST",
         headers: {
@@ -936,7 +936,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
                       <input
                         type="text"
                         name="name"
-                        placeholder="John Doe"
+                        placeholder="Enter Your Name"
                         value={formData.name}
                         onChange={handleFormInputChange}
                         onBlur={handleFieldBlur}
@@ -961,7 +961,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
                       <input
                         type="email"
                         name="email"
-                        placeholder="your@email.com"
+                        placeholder="Enter your email address"
                         value={formData.email}
                         onChange={handleFormInputChange}
                         onBlur={handleFieldBlur}
@@ -991,7 +991,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
                       <input
                         type="tel"
                         name="phone"
-                        placeholder="9876543210"
+                        placeholder="Enter Your Phone Number"
                         value={formData.phone}
                         onChange={handleFormInputChange}
                         onBlur={handleFieldBlur}
