@@ -82,14 +82,7 @@ export function BracketTree({ rounds }) {
       {selectedMatch && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 max-w-md w-full border border-slate-200 shadow-lg">
-            <button
-              onClick={() => setSelectedMatch(null)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl sm:text-2xl"
-            >
-              ✕
-            </button>
             <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4 sm:mb-6">Match Details</h3>
-
             <div className="space-y-4">
               <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
                 <p className="text-slate-600 text-xs sm:text-sm mb-2">Team 1</p>
@@ -144,7 +137,17 @@ export function BracketTree({ rounds }) {
                   {selectedMatch.status.charAt(0).toUpperCase() +
                     selectedMatch.status.slice(1)}
                 </span>
+                <span className="flex justify-end">
+                  <button
+                    onClick={() => setSelectedMatch(null)}
+                    className="px-6 py-2 rounded-lg bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition"
+                  >
+                    Close
+                  </button>
+
+                </span>
               </div>
+
             </div>
           </div>
         </div>

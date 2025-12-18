@@ -142,7 +142,7 @@ export function convertStagesToBracketRounds(stages) {
       ],
     },
     {
-      name: "Quarter-Finals",
+      name: "Quarter Finals",
       matches: [
         {
           id: "qf1",
@@ -179,7 +179,7 @@ export function convertStagesToBracketRounds(stages) {
       ],
     },
     {
-      name: "Semi-Finals",
+      name: "Semi Finals",
       matches: [
         {
           id: "sf1",
