@@ -326,7 +326,7 @@ const TournamentOverview = ({ setIsLoading }) =>{
 
   try {
     const orderResponse = await fetch(
-      "http://127.0.0.1:8000/payments/orders/",
+      "https://playdatesport.com/api/payments/orders/",
       {
         method: "POST",
         headers: {
