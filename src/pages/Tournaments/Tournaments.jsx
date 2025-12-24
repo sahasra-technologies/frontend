@@ -420,12 +420,12 @@ const Tournaments = ({ setIsLoading }) => {
                     <div className="flex gap-2">
                       <Button size="sm" variant="outline" 
                         className="flex-1" 
-                        onClick={() => navigate(`/tournaments/${tournament.id}`)}>
+                        onClick={() => navigate(`/new-tournaments/${tournament.id}`)}>
                         Check Info
                       </Button>
                       <Button size="sm" 
                         className={`flex-1 ${tournament.color} hover:opacity-90`} 
-                        onClick={() => navigate(`/tournaments/${tournament.id}`)} 
+                        onClick={() => navigate(`/new-tournaments/${tournament.id}`)} 
                         disabled={tournament.capacity === 0}
                         >
                         {tournament.capacity === 0 ? "Fully Booked" : "Book Tournament"}
