@@ -38,6 +38,8 @@ import CustomSpinner from './components/Spinner/CustomSpinner';
 import { ThemeContext, ThemeProvider } from "./context/ThemeContext"; // Ensure this exists
 import { GameProvider } from './context/GameContext';
 
+import Tournaments from './pages/Tournaments/Tournaments.jsx'
+
 const queryClient = new QueryClient();
 
 // 🔄 Layout with Navbar/Footer
@@ -111,6 +113,7 @@ const App = () => {
                 <Route path="/privacy" element={<LayoutWrapper><PrivacyPolicy setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/terms-conditions" element={<LayoutWrapper><TermsConditions setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/cancellation-refund" element={<LayoutWrapper><CancellationRefund setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                <Route path="/new-tournament-list" element={<LayoutWrapper><Tournaments setIsLoading={setIsLoading} ></Tournaments></LayoutWrapper>} />
 
                 {/* Not Found */}
                 <Route path="*" element={<NotFound />} />
