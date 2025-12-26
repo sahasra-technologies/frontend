@@ -94,9 +94,9 @@ const App = () => {
                 <Route path="/register" element={<LayoutWrapper><Register setIsLoading={setIsLoading} /></LayoutWrapper>} />
 
                 {/* APP */}
-                <Route path="/tournaments" element={<LayoutWrapper><TournamentPage setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                <Route path="/old-tournaments" element={<LayoutWrapper><TournamentPage setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/add-team" element={<LayoutWrapper><AddTeamDetails setIsLoading={setIsLoading}/></LayoutWrapper>} />
-                <Route path="/tournaments/:id" element={<LayoutWrapper><GameDetailsPage setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                <Route path="/old-tournaments/:id" element={<LayoutWrapper><GameDetailsPage setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/venue/:id" element={<LayoutWrapper><VenueLayout setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/venue/:id/details" element={<GroundVenueDetails setIsLoading={setIsLoading} />} />
                 <Route path="/venue/:id/tournament-rules" element={<GroundTournamentRules setIsLoading={setIsLoading} />} />
@@ -109,11 +109,12 @@ const App = () => {
                 <Route path='/match-page' element={<MatchPage setIsLoading={setIsLoading} />} />
                 <Route path='/BracketTree' element={<LayoutWrapper><BracketTreeIndex setIsLoading={setIsLoading} /></LayoutWrapper>} />
 
-                <Route path="/new-tournaments/:id" element={<LayoutWrapper><TournamentOverview setIsLoading={setIsLoading} /></LayoutWrapper>} />
+                <Route path="/tournaments" element={<LayoutWrapper><Tournaments setIsLoading={setIsLoading} ></Tournaments></LayoutWrapper>} />
+                <Route path="/tournaments/:id" element={<LayoutWrapper><TournamentOverview setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/privacy" element={<LayoutWrapper><PrivacyPolicy setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/terms-conditions" element={<LayoutWrapper><TermsConditions setIsLoading={setIsLoading} /></LayoutWrapper>} />
                 <Route path="/cancellation-refund" element={<LayoutWrapper><CancellationRefund setIsLoading={setIsLoading} /></LayoutWrapper>} />
-                <Route path="/new-tournament-list" element={<LayoutWrapper><Tournaments setIsLoading={setIsLoading} ></Tournaments></LayoutWrapper>} />
+                
 
                 {/* Not Found */}
                 <Route path="*" element={<NotFound />} />
