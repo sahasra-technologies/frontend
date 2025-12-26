@@ -17,7 +17,8 @@ import TUR0000001_img from '../../assets/Tournment/Winners/Vintage_box_cricket_U
 import TUR0000002_img from '../../assets/Tournment/Winners/Super_Cairo_Nagole.png';
 import TUR0000005_img from '../../assets/Tournment/Winners/Cricket_Adda_Dilsukhnagar_zone.png';
 import TUR0000004_img from '../../assets/Tournment/Winners/C5_SPORTS_ARENA_LB_Nagar_Zone.png';
-import defaultTournamentImg from '../../assets/Venues/venue1a.png'
+import defaultTournamentImg from '../../assets/Venues/venue1a.png';
+import { toast } from 'react-toastify';
 
 // export default function Tournaments() {
 const Tournaments = ({ setIsLoading }) => {  
@@ -143,7 +144,7 @@ const Tournaments = ({ setIsLoading }) => {
         { status: "" },
         { headers: { "Content-Type": "application/json" } }
       );
-      console.log("data", response.data)
+      // console.log("data", response.data)
 
       const normalizedTournaments = (response.data.data || []).map((v) => ({
         id: v.id,
@@ -166,12 +167,12 @@ const Tournaments = ({ setIsLoading }) => {
         price: Number(v.price) || 0,
         color: "bg-orange-500",
       }));
-      console.log("normalizedTournaments", normalizedTournaments)
+      // console.log("normalizedTournaments", normalizedTournaments)
       setAllTournaments(normalizedTournaments)
       // setActivities(normalizedTournaments);
       setIsLoading(false);
     } catch (err) {
-      console.error("Error fetching tournaments:", err);
+      toast.error("Error fetching tournaments");
     }
   };
 
